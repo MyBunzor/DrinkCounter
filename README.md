@@ -1,4 +1,4 @@
-# DrinkCounter
+# DrinksDrunk
 
 In this app, users will be able to keep track of their drinks during a night out. The user can plus different sorts of drinks, inputting
 data when having another one. This can be done one the homescreen, that looks like the activity on the left: 
