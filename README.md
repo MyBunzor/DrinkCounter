@@ -7,5 +7,7 @@ data when having another one. This can be done one the homescreen, that looks li
 
 The stored data can be seen when the user clicks on 'DATA'. The timeperiod in which the data can be shown, can also be chosen by the user. This happens in the choose-activity, that looks something like this: 
 
+<img src="https://github.com/MyBunzor/DrinkCounter/blob/master/docs/DrinkCounter%20TimeperiodActivity.png" width="15%" height="15%"/> 
 
-When clicking on one of the periods, a graph is shown in which the data for the chosen timeperiod is presented. 
+When clicking on one of the periods, a graph is shown in which the data for the chosen timeperiod is presented. The plus button 
+in the bottomright corner leads the user back to the homescreen.
