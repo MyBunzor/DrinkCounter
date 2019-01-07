@@ -10,4 +10,4 @@ this drink will get + 1 in the table - each drink having it's own row. With the 
 
 <img src="https://github.com/MyBunzor/DrinkCounter/blob/master/docs/DrinksDrunk%20drink%20class.png" width="15%" height="15%"/>
 
-The number of drinks already had will be displayed next to the drink. The set- and get function will be connected with the SQLite table. The get function will be used in the third activity, to show data for a certain period; the set function will be used when a user adds a drink (or substracts one, if a mistake is made). 
+The number of drinks already had will be displayed next to the drink. The set- and get function will be connected to the SQLite table. The get function will be used in the third activity, to show data for a certain period; the set function will be used when a user adds a drink (or substracts one, if a mistake is made). 
