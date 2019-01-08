@@ -1,7 +1,7 @@
 # Design Document 
 In the image blow, the homescreen (PlusActivity), TimeActivity and the GraphActivity are displayed. The core functionality is placed in the homescreen, where the user can plus a drink. When clicking on the data-button, the TimeActivity is loaded. Here, different timeperiods for the data to be shown incan be chosen. When one of the timeperiods in the second activity is clicked, the GraphActivity is loaded with the graph and specific time. 
 
-<img src="https://github.com/MyBunzor/DrinkCounter/blob/master/docs/DrinksDrunk%20Design.png" width="65%" height="50%"/>
+<img src="https://github.com/MyBunzor/DrinkCounter/blob/master/docs/DrinksDrunk%20Design%20Proto.png" width="65%" height="50%"/>
 
 The cornerstone of this app will be a database of some sort, presumably a SQLite database. When the plus button next to a drink is clicked, 
 this drink will get + 1 in the table - each drink having it's own row. With the plus, a timestamp is added as well. The timestamp enables the ability to show different timeperiods in which the alcohol is consumed (or isn't!). Each drink will have the attributes and functions presented in the class below: 
