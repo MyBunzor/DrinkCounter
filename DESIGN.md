@@ -1,7 +1,5 @@
 # Design Document 
-In the image blow, the homescreen and the choosescreen are displayed. The core functionality is placed in the homescreen, where the user
-can plus a drink. When clicking on the data-button, the choose-screen is loaded. Here, differend timeperiods for the data to be shown in
-can be chosen.
+In the image blow, the homescreen (PlusActivity), TimeActivity and the GraphActivity are displayed. The core functionality is placed in the homescreen, where the user can plus a drink. When clicking on the data-button, the TimeActivity is loaded. Here, different timeperiods for the data to be shown incan be chosen. When one of the timeperiods in the second activity is clicked, the GraphActivity is loaded with the graph and specific time. 
 
 <img src="https://github.com/MyBunzor/DrinkCounter/blob/master/docs/DrinksDrunk%20Design.png" width="65%" height="50%"/>
 
