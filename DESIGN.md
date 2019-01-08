@@ -1,5 +1,5 @@
 # Design Document 
-In the image blow, the homescreen (PlusActivity), TimeActivity and the GraphActivity are displayed. The core functionality is placed in the homescreen, where the user can plus a drink. When clicking on the data-button, the TimeActivity is loaded. Here, different timeperiods for the data to be shown in can be chosen. When one of the timeperiods in the second activity is clicked, the GraphActivity is loaded with the graph and specific time. The Trophies-button can be used to see which trophies the user has unlocked and which are still left to complete.
+In the image blow, the homescreen (PlusActivity), TimeActivity, GraphActivity and TrophyActivity are displayed. The core functionality is placed in the homescreen, where the user can plus a drink. When clicking on the data-button, the TimeActivity is loaded. Here, different timeperiods for the data to be shown in can be chosen. When one of the timeperiods in the second activity is clicked, the GraphActivity is loaded with the graph and specific time. The Trophies-button can be used to see which trophies the user has unlocked and which are still left to complete.
 
 <img src="https://github.com/MyBunzor/DrinkCounter/blob/master/docs/DrinksDrunk%20Design%20Prototype.png" width="100%" height="100%"/>
 
