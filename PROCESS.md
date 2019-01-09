@@ -15,6 +15,14 @@ The third day I mainly focussed on creating the SQLite database and connecting i
 
 The left image shows my old idea. The attribute 'number of drinks', will be removed. It won't be necessary to register this in the Drink object, because each time a drink is plussed, a new object will be added to the database. More importantly, it's impossible to register timestamps if one drink is registered multiple times in one tablerow. The Drink-class now looks like the image on the right. 
 
+Furthermore, I created layouts for the activities. These will be updated, because they're quite sober and boring now, but, my first priority overall is making the basic app idea function. 
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Homeactivity%20firstlayout.png" width="10%" height="10%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20TimeActivity%20firstlayout.png" width="10%" height="10%"/>
+
+
+
+
+
 
 
 
