@@ -17,7 +17,7 @@ The left image shows my old idea. The attribute 'number of drinks', will be remo
 
 Furthermore, I created layouts for the activities. These will be updated, because they're quite sober and boring now, but, my first priority overall is making the basic app idea function. 
 
-<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Homeactivity%20firstlayout.png" width="10%" height="10%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20TimeActivity%20firstlayout.png" width="10%" height="10%"/>
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Homeactivity%20firstlayout.png" width="20%" height="20%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20TimeActivity%20firstlayout.png" width="20%" height="20%"/>
 
 
 
