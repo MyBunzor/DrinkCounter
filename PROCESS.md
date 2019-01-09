@@ -11,7 +11,7 @@ I have decided to add a fourth activity, named the 'TrophyActivity', which enabl
 # day 3
 The third day I mainly focussed on creating the SQLite database and connecting it with the PlusActivity (so that when a user plusses a beer, it's also registered in the database). It wasn't long before I discovered I hadn't put much thinking in my data structure: instead of creating different model classes for drinks (each drink 1 model class), as I was planning on doing, I'll now create 1 model class 'Drink' with two attributes: the kind of drink (f.e. beer/wine) and the timestamp. 
 
-<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20drink%20class.png" width="50%" height="50%"/>
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20drink%20class.png" width="10%" height="10%"/>
 
 The left image shows my old idea. The attribute 'number of drinks', will be removed. It won't be necessary to register this in the Drink object, because each time a drink is plussed, a new object will be added to the database. More importantly, it's impossible to register timestamps if one drink is registered multiple times in one tablerow. The Drink-class now looks like the image on the right. 
 
