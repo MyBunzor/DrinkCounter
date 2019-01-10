@@ -19,6 +19,13 @@ Furthermore, I created layouts for the activities. These will be updated, becaus
 
 <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Homeactivity%20firstlayout.png" width="20%" height="20%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20TimeActivity%20firstlayout.png" width="20%" height="20%"/>
 
+# day 4
+Today I decided to add another activity: the HistoryActivity. It's an activity that the user can access via a button on the homescreen. The new PlusActivity now looks like this: 
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Homeactivity%20secondlayout.png" width="20%" height="20%"/>
+
+In the activity, all the inputted drinks are visible, with the moment they were added as well. It's not only practical for the user, but also useful to gain more insight in the way the SQLite database behaves. Wheter a drink is added or deleted, what the timestamp looks like or how many drinks should be visualized in a certain period: it's now visible in this activity. 
+
 
 
 
