@@ -16,8 +16,16 @@ public class TimeActivity extends AppCompatActivity {
     // Method that selects specific data from table
     public void sessionPeriod(View view) {
 
+        // Get intent with the start and end data of session
+        Intent getsessionData = getIntent();
+        String sessionstart = (String) getsessionData.getSerializableExtra("sessionstart");
+        String sessionend = (String) getsessionData.getSerializableExtra("sessionend");
+        System.out.println("timedata: start: " + sessionstart + "end: " +  sessionend);
+
         // TO DO: pass specific data with intent
         Intent session = new Intent(TimeActivity.this, GraphActivity.class);
+        session.putExtra("sessionstart", sessionstart);
+        session.putExtra("sessionend", sessionend);
         startActivity(session);
     }
 

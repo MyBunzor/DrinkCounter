@@ -18,7 +18,9 @@ import java.text.SimpleDateFormat;
 
 public class PlusActivity extends AppCompatActivity {
 
-    private DrinkDatabase db;
+    DrinkDatabase db;
+    String sessionstart;
+    String sessionend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class PlusActivity extends AppCompatActivity {
                 if (isChecked == true) {
 
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-                    String sessionstart = simpleDateFormat.format(new java.util.Date());
+                    sessionstart = simpleDateFormat.format(new java.util.Date());
 
                     // Let user know the session started
                     Context context = getApplicationContext();
@@ -52,7 +54,7 @@ public class PlusActivity extends AppCompatActivity {
                 // If not, the session is (if it was there) ended
                 else {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-                    String sessionend = simpleDateFormat.format(new java.util.Date());
+                    sessionend = simpleDateFormat.format(new java.util.Date());
 
                     // Let user know the session ended
                     Context context = getApplicationContext();
@@ -69,6 +71,8 @@ public class PlusActivity extends AppCompatActivity {
     // Method that's connected to the data-button
     public void toTime(View view) {
         Intent chooseTime = new Intent(PlusActivity.this, TimeActivity.class);
+        chooseTime.putExtra("sessionstart", sessionstart);
+        chooseTime.putExtra("sessionend", sessionend);
         startActivity(chooseTime);
     }
 
@@ -97,13 +101,13 @@ public class PlusActivity extends AppCompatActivity {
         // Record moment of adding drink
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String format = simpleDateFormat.format(new java.util.Date());
+        System.out.println("format: "+ format);
 
         // Create drink object with data above, then insert it in database
         Drink drink = new Drink(kind, format);
-        DrinkDatabase db = DrinkDatabase.getInstance(getApplicationContext());
-        db.insert(drink);
 
-        System.out.print("drink: "+ drink);
+        db = DrinkDatabase.getInstance(getApplicationContext());
+        db.insert(drink);
 
         // When user inputted a drink, disable buttons for 5 sec
         final Button beer = findViewById(R.id.beer);
@@ -146,7 +150,6 @@ public class PlusActivity extends AppCompatActivity {
                 craftbeer.setEnabled(true);
             }
         }, 1*5*1000);
-
     }
 
     // Method that deletes last drink added
@@ -155,6 +158,14 @@ public class PlusActivity extends AppCompatActivity {
         // Call delete method from DrinkDatabase to undo last input
         db = DrinkDatabase.getInstance(getApplicationContext());
         db.delete();
+
+        // Let user know that the last input is deleted
+        Context context = getApplicationContext();
+        CharSequence text = "Last drink removed!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     // Method that directs user to history activity

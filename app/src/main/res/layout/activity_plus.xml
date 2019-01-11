@@ -71,7 +71,7 @@
         android:fontFamily="@font/arsenal"
         android:text="Session"
         android:textAllCaps="false"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -145,7 +145,6 @@
         android:onClick="toTime"
         android:text="Data"
         android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/trophiesButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -159,7 +158,6 @@
         android:onClick="toTrophies"
         android:text="Trophies"
         android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -167,28 +165,24 @@
         android:id="@+id/undoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/arsenal"
         android:onClick="undoDrink"
         android:text="UNDO"
         app:layout_constraintBottom_toTopOf="@+id/dataButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/craftbeer" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/historyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/arsenal"
         android:onClick="toHistory"
         android:text="History"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/trophiesButton"
-        app:layout_constraintStart_toEndOf="@+id/switchSession" />
+        app:layout_constraintBottom_toTopOf="@+id/switchSession"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

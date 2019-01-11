@@ -22,6 +22,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
             return instance;
         }
         else {
+            instance = new DrinkDatabase(context, "instance", 1);
             return instance;
         }
     }
@@ -56,7 +57,14 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
     // Method to delete last inputted drink
     public void delete() {
+
         System.out.println("DELETED!");
+
+        // Get access to database to remove last input
+        SQLiteDatabase deletabledb = instance.getWritableDatabase();
+
+        // Remove the input with the highest number listed in column _id
+        deletabledb.execSQL("DELETE FROM drinks WHERE _id IN (SELECT MAX(_id) FROM drinks LIMIT 1)");
     }
 
     // Use Cursor to get (specific) access to table
@@ -68,6 +76,18 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         // Create cursor variable, select everything and place it in cursor
         Cursor cursor = writabledb.rawQuery("SELECT * FROM drinks", null);
         return cursor;
+    }
+
+    // Use cursor to get beer data
+    public Cursor selectBeer() {
+
+        // Open up connection with the database
+        SQLiteDatabase beerdb = instance.getWritableDatabase();
+
+        // Create cursor variable, select beer and place it in cursor instance
+        Cursor cursor = beerdb.rawQuery("SELECT * FROM drinks WHERE kind
+
+
     }
 
     // onUpgrade enables dropping or recreating the table
