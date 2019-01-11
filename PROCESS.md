@@ -26,6 +26,13 @@ Today I decided to add another activity: the HistoryActivity. It's an activity t
 
 In the activity, all the inputted drinks are visible, with the moment they were added as well. It's not only practical for the user, but also useful to gain more insight in the way the SQLite database behaves. Wheter a drink is added or deleted, what the timestamp looks like or how many drinks should be visualized in a certain period: it's now visible in this activity. 
 
+# day 5
+The database is finished, more or less. The user can add drinks, view them in the HistoryActivity that I made yesterday and undo the last input, in case of a mistake. Adding and deleting a drink activates a toast message, so the user's ensured that his action actually took place: 
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Homeactivity%20toastmessage.png" width="20%" height="20%"/>
+
+At the moment of adding a drink, other add buttons are disabled (as can be seen) for 5 seconds, to ensure the user doesn't add more drinks at once by accident. It's unnecessary to do so, and therefor only mistakes could be made if they were enabled all the time.
+
 
 
 
