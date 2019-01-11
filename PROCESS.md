@@ -33,6 +33,12 @@ The database is finished, more or less. The user can add drinks, view them in th
 
 At the moment of adding a drink, other add buttons are disabled (as can be seen) for 5 seconds, to ensure the user doesn't add more drinks at once by accident. It's unnecessary to do so, and therefor only mistakes could be made if they were enabled all the time.
 
+Now that the basic navigation and the database are in place, a library with a visualization needs to be added. I´m not sure yet in what way the data can be visualized best: 
+- by a bar graph;
+- by a line graph.
+
+A line graph is probably more attractive, certainly for visualizations of long periods of time, but it's not suited for data of only one evening (f.e. if only 3 drinks were drunk by user). If, however, a visualization of a longer period is made, then the distribution of the consumption within that period wouldn't be quite clear. For now I'll focus on getting the bar chart first, because it's probably easier to implement.
+
 
 
 
