@@ -31,7 +31,7 @@ The database is finished, more or less. The user can add drinks, view them in th
 
 <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Homeactivity%20toastmessage.png" width="20%" height="20%"/>
 
-At the moment of adding a drink, other add buttons are disabled (as can be seen) for 5 seconds, to ensure the user doesn't add more drinks at once by accident. It's unnecessary to do so, and therefor only mistakes could be made if they were enabled all the time.
+At the moment of adding a drink, other add buttons are disabled (as can be seen) for 5 seconds, to ensure the user doesn't add more drinks at once by accident. It's unnecessary to do so, and therefor only mistakes could be made if they were enabled all the time. One last flaw concerning the input, is that users can't add drinks afterwards, in case their phone wasn't with them or empty. That's why it might be a good idea to implement a function / activity where users can add drinks an manually input time. This has to be given more thought before it'll be added to the app.
 
 Now that the basic navigation and the database are in place, a library with a visualization needs to be added. I´m not sure yet in what way the data can be visualized best: 
 - by a bar graph;
