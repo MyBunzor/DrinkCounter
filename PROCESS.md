@@ -39,6 +39,15 @@ Now that the basic navigation and the database are in place, a library with a vi
 
 A line graph is probably more attractive, certainly for visualizations of long periods of time, but it's not suited for data of only one evening (f.e. if only 3 drinks were drunk by user). If, however, a visualization of a longer period is made, then the distribution of the consumption within that period wouldn't be quite clear. For now I'll focus on getting the bar chart first, because it's probably easier to implement.
 
+# day 6
+Today started out with a stand-up in our group, where each of us explained our progress. Feedback and critic was given by Marijn, who brought up the idea of creating an extra database, to put drinks in that were drunk in a session. It made me think, but first I wanted to try to keep all data in one database and separate drinks based on their timestamp. I made progress:
+- Users are now able to record how much they drank in a session, as well as to see how many they've already had mid-session;
+- The application remembers important data, even when it's shut down by the user (SharedPreferences);
+- The BETWEEN function in SQL works properly.
+
+The next few days are therefor needed to implement the ability to show how many drinks were drunk in a week / month / and year. If that's finished, the basic functionality of the app is ready. Only the visualization then is let.
+
+
 
 
 

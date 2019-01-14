@@ -22,6 +22,7 @@ public class PlusActivity extends AppCompatActivity {
     DrinkDatabase db;
     String StoredStart;
     String StoredEnd;
+    Boolean check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,12 @@ public class PlusActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                // Initialise editor to save timestamps later on
                 SharedPreferences.Editor editor = getSharedPreferences("time", MODE_PRIVATE).edit();
 
                 // When switch is in on Position, a session is created
                 if (isChecked == true) {
+                    check = isChecked;
 
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
                     String sessionstart = simpleDateFormat.format(new java.util.Date());
@@ -48,8 +51,6 @@ public class PlusActivity extends AppCompatActivity {
                     // Use shared preferences' editor to keep time window for session
                     editor.putString("sessionstart", sessionstart);
                     editor.apply();
-
-                    System.out.println("ORIGINAL TIME: " + sessionstart);
 
                     // Let user know the session started
                     Context context = getApplicationContext();
@@ -95,8 +96,7 @@ public class PlusActivity extends AppCompatActivity {
         // Put time variables in intent
         chooseTime.putExtra("sessionstart", StoredStart);
         chooseTime.putExtra("sessionend", StoredEnd);
-
-        System.out.println("PREFS TIME: " + StoredStart + StoredEnd);
+        chooseTime.putExtra("switch", check);
 
         startActivity(chooseTime);
     }

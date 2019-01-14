@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+
+import static java.time.Instant.MAX;
+
 public class DrinkDatabase extends SQLiteOpenHelper {
 
     private DrinkDatabase(Context context, String name, int version) {
@@ -78,16 +82,31 @@ public class DrinkDatabase extends SQLiteOpenHelper {
     }
 
     // Use cursor to get beer data
-    public Cursor selectSession(String starttime, String endtime) {
+    public Cursor selectSession(String starttime, String endtime, Boolean check) {
 
         // Open up connection with the database
         SQLiteDatabase beerdb = instance.getWritableDatabase();
 
-        // Create cursor variable, select beer and place it in cursor instance
-        Cursor cursor = beerdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN '"+starttime+"' AND '"+endtime+"'",null);
+        System.out.println("endtime: "+ endtime);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String stringNow = simpleDateFormat.format(new java.util.Date());
 
-        System.out.println("Count: "+ cursor.getCount());
-        return cursor;
+        // Select all consumptions upward of starttime if session is live
+        if(check == true) {
+            System.out.println("Start: " + starttime + "Now: " + stringNow);
+            Cursor cursor = beerdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN " +
+                    "'"+starttime+"' AND '"+stringNow+"'", null);
+            return cursor;
+        }
+
+        // Otherwise, select all consumptions in session
+        else {
+
+            Cursor cursor = beerdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN " +
+                    "'" + starttime + "' AND '" + endtime + "'", null);
+            return cursor;
+        }
+        //System.out.println("Count: "+ cursor.getCount());
     }
 
     // onUpgrade enables dropping or recreating the table

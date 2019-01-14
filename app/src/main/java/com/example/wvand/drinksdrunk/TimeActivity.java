@@ -21,12 +21,13 @@ public class TimeActivity extends AppCompatActivity {
         Intent getsessionData = getIntent();
         String sessionstart = (String) getsessionData.getSerializableExtra("sessionstart");
         String sessionend = (String) getsessionData.getSerializableExtra("sessionend");
-        System.out.println("timedata: start: " + sessionstart + "end: " +  sessionend);
+        Boolean check = (Boolean) getsessionData.getSerializableExtra("switch");
 
         // TO DO: pass specific data with intent
         Intent session = new Intent(TimeActivity.this, GraphActivity.class);
         session.putExtra("sessionstart", sessionstart);
         session.putExtra("sessionend", sessionend);
+        session.putExtra("switch", check);
         startActivity(session);
     }
 

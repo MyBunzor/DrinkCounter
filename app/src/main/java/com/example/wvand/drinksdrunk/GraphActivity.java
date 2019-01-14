@@ -18,20 +18,15 @@ public class GraphActivity extends AppCompatActivity {
         Intent getsessionData = getIntent();
         String startsession = (String) getsessionData.getSerializableExtra("sessionstart");
         String endsession = (String) getsessionData.getSerializableExtra("sessionend");
+        Boolean check = (Boolean) getsessionData.getSerializableExtra("switch");
 
         // Get the database to get data
         db = DrinkDatabase.getInstance(getApplicationContext());
 
         // Use cursor and database to get amount of drinks, pass timestamps along
-        Cursor cursor = db.selectSession(startsession, endsession);
+        Cursor cursor = db.selectSession(startsession, endsession, check);
 
-        System.out.println("Sessioncount: " + cursor.getCount());
-
+        int sessioncount = cursor.getCount();
+        System.out.println("COUNT:" + sessioncount);
     }
-
-
-//        String id = cursor.getString(i);
-//        String kind = cursor.getString(i + 1);
-//        System.out.println("ID and kind: " + id + kind);
-
 }
