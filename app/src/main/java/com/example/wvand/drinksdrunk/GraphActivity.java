@@ -22,9 +22,16 @@ public class GraphActivity extends AppCompatActivity {
         // Get the database to get data
         db = DrinkDatabase.getInstance(getApplicationContext());
 
-        // Use cursor and database to get amount of beers
-        Cursor cursor = db.selectBeer();
-        int count = cursor.getCount();
-        System.out.println("count: "+ count);
+        // Use cursor and database to get amount of drinks, pass timestamps along
+        Cursor cursor = db.selectSession(startsession, endsession);
+
+        System.out.println("Sessioncount: " + cursor.getCount());
+
     }
+
+
+//        String id = cursor.getString(i);
+//        String kind = cursor.getString(i + 1);
+//        System.out.println("ID and kind: " + id + kind);
+
 }

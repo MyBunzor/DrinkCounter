@@ -2,6 +2,7 @@ package com.example.wvand.drinksdrunk;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,8 +20,8 @@ import java.text.SimpleDateFormat;
 public class PlusActivity extends AppCompatActivity {
 
     DrinkDatabase db;
-    String sessionstart;
-    String sessionend;
+    String StoredStart;
+    String StoredEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +37,19 @@ public class PlusActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                SharedPreferences.Editor editor = getSharedPreferences("time", MODE_PRIVATE).edit();
+
                 // When switch is in on Position, a session is created
                 if (isChecked == true) {
 
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-                    sessionstart = simpleDateFormat.format(new java.util.Date());
+                    String sessionstart = simpleDateFormat.format(new java.util.Date());
+
+                    // Use shared preferences' editor to keep time window for session
+                    editor.putString("sessionstart", sessionstart);
+                    editor.apply();
+
+                    System.out.println("ORIGINAL TIME: " + sessionstart);
 
                     // Let user know the session started
                     Context context = getApplicationContext();
@@ -54,7 +63,10 @@ public class PlusActivity extends AppCompatActivity {
                 // If not, the session is (if it was there) ended
                 else {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-                    sessionend = simpleDateFormat.format(new java.util.Date());
+                    String sessionend = simpleDateFormat.format(new java.util.Date());
+
+                    editor.putString("sessionend", sessionend);
+                    editor.apply();
 
                     // Let user know the session ended
                     Context context = getApplicationContext();
@@ -71,8 +83,21 @@ public class PlusActivity extends AppCompatActivity {
     // Method that's connected to the data-button
     public void toTime(View view) {
         Intent chooseTime = new Intent(PlusActivity.this, TimeActivity.class);
-        chooseTime.putExtra("sessionstart", sessionstart);
-        chooseTime.putExtra("sessionend", sessionend);
+
+        // Retrieve start of session, with help of editor under key 'time'
+        SharedPreferences startTime = getSharedPreferences("time", MODE_PRIVATE);
+        StoredStart = startTime.getString("sessionstart", "0");
+
+        // Retrieve end of session, with help of editor under key 'time'
+        SharedPreferences endTime = getSharedPreferences("time", MODE_PRIVATE);
+        StoredEnd = endTime.getString("sessionend", "0");
+
+        // Put time variables in intent
+        chooseTime.putExtra("sessionstart", StoredStart);
+        chooseTime.putExtra("sessionend", StoredEnd);
+
+        System.out.println("PREFS TIME: " + StoredStart + StoredEnd);
+
         startActivity(chooseTime);
     }
 

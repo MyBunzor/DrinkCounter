@@ -58,8 +58,6 @@ public class DrinkDatabase extends SQLiteOpenHelper {
     // Method to delete last inputted drink
     public void delete() {
 
-        System.out.println("DELETED!");
-
         // Get access to database to remove last input
         SQLiteDatabase deletabledb = instance.getWritableDatabase();
 
@@ -75,19 +73,21 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
         // Create cursor variable, select everything and place it in cursor
         Cursor cursor = writabledb.rawQuery("SELECT * FROM drinks", null);
+
         return cursor;
     }
 
     // Use cursor to get beer data
-    public Cursor selectBeer() {
+    public Cursor selectSession(String starttime, String endtime) {
 
         // Open up connection with the database
         SQLiteDatabase beerdb = instance.getWritableDatabase();
 
         // Create cursor variable, select beer and place it in cursor instance
-        Cursor cursor = beerdb.rawQuery("SELECT * FROM drinks WHERE kind
+        Cursor cursor = beerdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN '"+starttime+"' AND '"+endtime+"'",null);
 
-
+        System.out.println("Count: "+ cursor.getCount());
+        return cursor;
     }
 
     // onUpgrade enables dropping or recreating the table
