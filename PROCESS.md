@@ -24,7 +24,7 @@ Today I decided to add another activity: the HistoryActivity. It's an activity t
 
 <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Homeactivity%20secondlayout.png" width="20%" height="20%"/>
 
-In the activity, all the inputted drinks are visible, with the moment they were added as well. It's not only practical for the user, but also useful to gain more insight in the way the SQLite database behaves. Wheter a drink is added or deleted, what the timestamp looks like or how many drinks should be visualized in a certain period: it's now visible in this activity. 
+In the HistoryActivity all the inputted drinks are visible, with the moment they were added as well. It's not only practical for the user, but also useful to gain more insight in the way the SQLite database behaves. Wheter a drink is added or deleted, what the timestamp looks like or how many drinks should be visualized in a certain period: it's now visible in this activity.
 
 # day 5
 The database is finished, more or less. The user can add drinks, view them in the HistoryActivity that I made yesterday and undo the last input, in case of a mistake. Adding and deleting a drink activates a toast message, so the user's ensured that his action actually took place: 
@@ -45,7 +45,11 @@ Today started out with a stand-up in our group, where each of us explained our p
 - The application remembers important data, even when it's shut down by the user (SharedPreferences);
 - The BETWEEN function in SQL works properly.
 
-The next few days are therefor needed to implement the ability to show how many drinks were drunk in a week / month / and year. If that's finished, the basic functionality of the app is ready. Only the visualization then is let.
+The next few days are therefor needed to implement the ability to show how many drinks were drunk in a week / month / and year. If that's finished, the basic functionality of the app is ready. Only the visualization then is left.
+
+Because a screenshot of the HistoryActivity wasn't displayed yet, here it is:
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20HistoryActivity.png" width="20%" height="20%"/>
 
 
 
