@@ -58,7 +58,7 @@ Because the process was stuck there, I decided to test out the library for chart
 
 That's why I updated the design figure:
 
-<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Design%20Prototype%20update.png" width="20%" height="20%"/>
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Design%20Prototype%20update.png" width="100%" height="100%"/>
 
 
 
