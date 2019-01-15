@@ -49,7 +49,18 @@ The next few days are therefor needed to implement the ability to show how many 
 
 Because a screenshot of the HistoryActivity wasn't displayed yet, here it is:
 
-<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20HistoryActivity.png" width="20%" height="20%"/>
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20HistoryActivityk.png" width="20%" height="20%"/>
+
+# day 7
+Not much progress was made this day. The SQLite Database isn't fully functioning to its design yet.
+
+Because the process was stuck there, I decided to test out the library for charts I found. That, however, wasn't much of a success either.
+
+That's why I updated the design figure:
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Design%20Prototype%20update.png" width="20%" height="20%"/>
+
+
 
 
 

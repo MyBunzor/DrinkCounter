@@ -22,7 +22,7 @@ public class PlusActivity extends AppCompatActivity {
     DrinkDatabase db;
     String StoredStart;
     String StoredEnd;
-    Boolean check;
+    Boolean check = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

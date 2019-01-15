@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import static java.time.Instant.MAX;
@@ -36,7 +38,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         // Columns represent each field in Drink model class
-        db.execSQL("create table drinks (_id INTEGER PRIMARY KEY AUTOINCREMENT, kind TEXT, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+        db.execSQL("create table drinks (_id INTEGER PRIMARY KEY AUTOINCREMENT, kind TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)");
     }
 
     // Insert method is called when one of the drinks is plussed
@@ -87,7 +89,6 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         // Open up connection with the database
         SQLiteDatabase beerdb = instance.getWritableDatabase();
 
-        System.out.println("endtime: "+ endtime);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String stringNow = simpleDateFormat.format(new java.util.Date());
 
@@ -106,7 +107,44 @@ public class DrinkDatabase extends SQLiteOpenHelper {
                     "'" + starttime + "' AND '" + endtime + "'", null);
             return cursor;
         }
-        //System.out.println("Count: "+ cursor.getCount());
+    }
+
+    public Cursor selectWeek(){
+
+        // Open up connection with the database
+        SQLiteDatabase weekdb = instance.getWritableDatabase();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String stringNow = simpleDateFormat.format(new java.util.Date());
+
+
+        System.out.println("DATE: " + stringNow);
+
+        // Get cursor to select week period
+        Cursor weekCursor = weekdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN" +
+                " datetime('now', '-6days') AND datetime('now', 'localtime')", null);
+
+        return weekCursor;
+    }
+
+    public Cursor selectMonth() {
+
+        // Open up connection with the database
+        SQLiteDatabase monthdb = instance.getWritableDatabase();
+
+        Cursor monthCursor = monthdb.rawQuery("SELECT * FROM drinks WHERE strftime('%m', timestamp) = '01'", null);
+
+        return monthCursor;
+    }
+
+    public Cursor selectYear() {
+
+        // Open up connection with the database
+        SQLiteDatabase monthdb = instance.getWritableDatabase();
+
+        Cursor cursor = monthdb.rawQuery("SELECT * FROM drinks", null);
+
+        return cursor;
     }
 
     // onUpgrade enables dropping or recreating the table
