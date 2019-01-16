@@ -60,6 +60,12 @@ That's why I updated the design figure:
 
 <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20Design%20Prototype%20update.png" width="100%" height="100%"/>
 
+# day 8
+The 8th day was more productive than the 7th, luckily. The application is now able to register how many alcohol consumptions and what kind were drunk in a session, week, month, and year. A library to visualize this information was added as well. A somewhat dynamic connection between the database and the library has already been made: the amount of beers in a session is already visible, as can be seen below:
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20GraphActivity%20beers.png" width="20%" height="20%"/>
+
+It's still partially hardcoded (the Query to get the amount of beers in a session) and ideally should be more dynamic. That's a task for tomorrow.
 
 
 

@@ -5,18 +5,21 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Cartesian;
+import com.anychart.charts.Pie;
+import com.anychart.core.ui.LabelsFactory;
+import com.anychart.core.ui.table.Column;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GraphActivity extends AppCompatActivity {
 
     private DrinkDatabase db;
-    BarChart barChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,23 +49,24 @@ public class GraphActivity extends AppCompatActivity {
                 int sessioncount = sessionCursor.getCount();
                 System.out.println("COUNT:" + sessioncount);
 
-                barChart = findViewById(R.id.bargraph);
+                // Get different kind of drinks drunk
+                Cursor kindCursor = db.selectsessionKind(startsession, endsession, check);
+                int beercount = kindCursor.getCount();
+                System.out.println("BEERCOUNT: " + beercount);
 
-                ArrayList<BarEntry> barEntries = new ArrayList<>();
-                barEntries.add(new BarEntry(44f,0));
-                barEntries.add(new BarEntry(88f,1));
-                barEntries.add(new BarEntry(12f,2));
-                BarDataSet barDataSet = new BarDataSet(barEntries, "Dates");
+                // Create column chart and list to put data in
+                Cartesian column = AnyChart.column();
+                List<DataEntry> data1 = new ArrayList<>();
 
-                ArrayList<String> theDates = new ArrayList<>();
-                theDates.add("April");
-                theDates.add("May");
-                theDates.add("June");
+                // Put amount of drinks drunk per kind in list
+                data1.add(new ValueDataEntry("beer", beercount));
 
+                // Fetch datalist to the column
+                column.data(data1);
 
-                BarData theData = new BarData((IBarDataSet) theDates,barDataSet);
-                barChart.setData(theData);
-                barChart.setTouchEnabled(true);
+                // Set column on the any chart view
+                AnyChartView anyChartView = findViewById(R.id.any_chart_view);
+                anyChartView.setChart(column);
 
                 break;
 

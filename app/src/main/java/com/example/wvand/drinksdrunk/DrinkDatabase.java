@@ -5,14 +5,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 import java.sql.Date;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import static java.time.Instant.MAX;
 
 public class DrinkDatabase extends SQLiteOpenHelper {
+
+    final private static String TAG = "DrinkDatabase";
 
     private DrinkDatabase(Context context, String name, int version) {
         super(context, name, null, version);
@@ -28,7 +36,6 @@ public class DrinkDatabase extends SQLiteOpenHelper {
             return instance;
         }
         else {
-            instance = new DrinkDatabase(context, "instance", 1);
             return instance;
         }
     }
@@ -39,6 +46,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
         // Columns represent each field in Drink model class
         db.execSQL("create table drinks (_id INTEGER PRIMARY KEY AUTOINCREMENT, kind TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)");
+
     }
 
     // Insert method is called when one of the drinks is plussed
@@ -83,7 +91,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         return cursor;
     }
 
-    // Use cursor to get beer data
+    // Use cursor to get drinks in a session
     public Cursor selectSession(String starttime, String endtime, Boolean check) {
 
         // Open up connection with the database
@@ -109,42 +117,81 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         }
     }
 
+    // Method that selects drinks of past 7 days
     public Cursor selectWeek(){
 
         // Open up connection with the database
         SQLiteDatabase weekdb = instance.getWritableDatabase();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String stringNow = simpleDateFormat.format(new java.util.Date());
+        // Get today's date..
+        Calendar cal = Calendar.getInstance();
+        long actual = cal.getTimeInMillis();
+        Date datenow = new Date(actual);
 
+        // ..and date from 7 days ago
+        cal.add(Calendar.DAY_OF_MONTH, -7);
+        long week = cal.getTimeInMillis();
+        Date lastweek = new Date(week);
 
-        System.out.println("DATE: " + stringNow);
+        // Format to SimpleDateFormat to work with SQLite
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String now = simpleDateFormat.format(datenow);
+        String lastWeek = simpleDateFormat.format(lastweek);
 
         // Get cursor to select week period
-        Cursor weekCursor = weekdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN" +
-                " datetime('now', '-6days') AND datetime('now', 'localtime')", null);
+        Cursor weekCursor = weekdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN " +
+                "'" + lastWeek + "' AND '"+ now + "'",null);
 
         return weekCursor;
     }
 
+    // Method that selects drinks from last month
     public Cursor selectMonth() {
 
         // Open up connection with the database
         SQLiteDatabase monthdb = instance.getWritableDatabase();
 
-        Cursor monthCursor = monthdb.rawQuery("SELECT * FROM drinks WHERE strftime('%m', timestamp) = '01'", null);
+        Cursor monthCursor = monthdb.rawQuery("SELECT * FROM drinks WHERE timestamp >= " +
+                "date('now', 'start of month', '-1 month')", null);
 
         return monthCursor;
     }
 
+    // Method that selects drinks from this year
     public Cursor selectYear() {
 
         // Open up connection with the database
         SQLiteDatabase monthdb = instance.getWritableDatabase();
 
-        Cursor cursor = monthdb.rawQuery("SELECT * FROM drinks", null);
+        Cursor cursor = monthdb.rawQuery("SELECT * FROM drinks WHERE timestamp <= " +
+                "date('now', 'start of year')", null);
 
         return cursor;
+    }
+
+    // Test method
+    public Cursor selectsessionKind(String starttime, String endtime, Boolean check) {
+
+        // Open up connection with the database
+        SQLiteDatabase kinddb = instance.getReadableDatabase();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String stringNow = simpleDateFormat.format(new java.util.Date());
+
+        // Select all beers drunk within current session
+        if(check == true) {
+            Cursor cursor = kinddb.rawQuery("SELECT * FROM drinks WHERE kind == 'beer' AND " +
+                    "timestamp BETWEEN '"+starttime+"' AND '"+stringNow+"' ", null);
+
+            return cursor;
+        }
+
+        // Select all beers drunk within last session
+        else {
+            Cursor cursor = kinddb.rawQuery("SELECT * FROM drinks WHERE kind == 'beer' AND " +
+                    "timestamp BETWEEN '"+starttime+"' AND '"+endtime+"' ", null);
+            return cursor;
+        }
     }
 
     // onUpgrade enables dropping or recreating the table
