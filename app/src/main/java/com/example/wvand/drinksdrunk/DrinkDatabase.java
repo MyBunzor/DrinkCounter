@@ -45,7 +45,8 @@ public class DrinkDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         // Columns represent each field in Drink model class
-        db.execSQL("create table drinks (_id INTEGER PRIMARY KEY AUTOINCREMENT, kind TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)");
+        db.execSQL("create table drinks (_id INTEGER PRIMARY KEY AUTOINCREMENT, kind TEXT, " +
+                "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)");
 
     }
 
@@ -169,8 +170,8 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         return cursor;
     }
 
-    // Test method
-    public Cursor selectsessionKind(String starttime, String endtime, Boolean check) {
+    // Method to check how many and what kind of drinks were drunk in session
+    public Cursor selectsessionKind(String starttime, String endtime, Boolean check, String kind) {
 
         // Open up connection with the database
         SQLiteDatabase kinddb = instance.getReadableDatabase();
@@ -180,18 +181,69 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
         // Select all beers drunk within current session
         if(check == true) {
-            Cursor cursor = kinddb.rawQuery("SELECT * FROM drinks WHERE kind == 'beer' AND " +
-                    "timestamp BETWEEN '"+starttime+"' AND '"+stringNow+"' ", null);
+            Cursor cursor = kinddb.rawQuery("SELECT * FROM drinks WHERE kind == '"+ kind
+                    + "' AND timestamp BETWEEN '"+starttime+"' AND '"+stringNow+"' ",
+                    null);
 
             return cursor;
         }
 
         // Select all beers drunk within last session
         else {
-            Cursor cursor = kinddb.rawQuery("SELECT * FROM drinks WHERE kind == 'beer' AND " +
-                    "timestamp BETWEEN '"+starttime+"' AND '"+endtime+"' ", null);
+            Cursor cursor = kinddb.rawQuery("SELECT * FROM drinks WHERE kind == '"+ kind +"' " +
+                    "AND timestamp BETWEEN '"+starttime+"' AND '"+endtime+"' ", null);
             return cursor;
         }
+    }
+
+    public Cursor selectkindWeek(String kind) {
+
+        // Open up connection with the database
+        SQLiteDatabase weekdb = instance.getWritableDatabase();
+
+        // Get today's date..
+        Calendar cal = Calendar.getInstance();
+        long actual = cal.getTimeInMillis();
+        Date datenow = new Date(actual);
+
+        // ..and date from 7 days ago
+        cal.add(Calendar.DAY_OF_MONTH, -7);
+        long week = cal.getTimeInMillis();
+        Date lastweek = new Date(week);
+
+        // Format to SimpleDateFormat to work with SQLite
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String now = simpleDateFormat.format(datenow);
+        String lastWeek = simpleDateFormat.format(lastweek);
+
+        // Get cursor to select week period and kind of drink
+        Cursor weekCursor = weekdb.rawQuery("SELECT * FROM drinks WHERE kind == '"+kind+"' " +
+                "AND timestamp BETWEEN '" + lastWeek + "' AND '" + now + "'", null);
+
+        return weekCursor;
+    }
+
+    // Method that selects drinks from last month
+    public Cursor selectkindMonth(String kind) {
+
+        // Open up connection with the database
+        SQLiteDatabase monthdb = instance.getWritableDatabase();
+
+        Cursor monthCursor = monthdb.rawQuery("SELECT * FROM drinks WHERE kind == '"+kind+"' "+
+                " AND timestamp >= date('now', 'start of month', '-1 month')", null);
+
+        return monthCursor;
+    }
+
+    public Cursor selectkindYear(String kind) {
+
+        // Open up connection with the database
+        SQLiteDatabase monthdb = instance.getWritableDatabase();
+
+        Cursor cursor = monthdb.rawQuery("SELECT * FROM drinks WHERE kind == '"+ kind +"' " +
+                "AND timestamp <= date('now', 'start of year')", null);
+
+        return cursor;
     }
 
     // onUpgrade enables dropping or recreating the table
