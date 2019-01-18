@@ -96,6 +96,9 @@ public class GraphActivity extends AppCompatActivity {
                 yTitle.enabled(true);
                 yTitle.text("Session consumption");
 
+                // Set y-axis interval on 1 (input can't be a float)
+                column.yScale().ticks().interval(1);
+
                 break;
 
             case "week":
@@ -139,6 +142,14 @@ public class GraphActivity extends AppCompatActivity {
                 // Set column on the any chart view
                 AnyChartView weekChart = findViewById(R.id.any_chart_view);
                 weekChart.setChart(columnWeek);
+
+                // Set title
+                Title weekTitle = columnWeek.title();
+                weekTitle.enabled(true);
+                weekTitle.text("Weekly consumption");
+
+                // Set y-axis interval on 1 (input can't be a float)
+                columnWeek.yScale().ticks().interval(1);
 
                 break;
 
@@ -185,6 +196,14 @@ public class GraphActivity extends AppCompatActivity {
                 AnyChartView monthChart = findViewById(R.id.any_chart_view);
                 monthChart.setChart(columnMonth);
 
+                // Set title
+                Title monthTitle = columnMonth.title();
+                monthTitle.enabled(true);
+                monthTitle.text("Monthly consumption");
+
+                // Set y-axis interval on 1 (input can't be a float)
+                columnMonth.yScale().ticks().interval(1);
+
                 break;
 
             case "year":
@@ -228,6 +247,14 @@ public class GraphActivity extends AppCompatActivity {
                 // Set column on the any chart view
                 AnyChartView yearChart = findViewById(R.id.any_chart_view);
                 yearChart.setChart(columnYear);
+
+                // Set title
+                Title yearTitle = columnYear.title();
+                yearTitle.enabled(true);
+                yearTitle.text("Yearly consumption");
+
+                // Set y-axis interval on 1 (input can't be a float)
+                columnYear.yScale().ticks().interval(2);
 
                 break;
         }

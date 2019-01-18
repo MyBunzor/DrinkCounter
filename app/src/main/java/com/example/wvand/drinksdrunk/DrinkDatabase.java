@@ -92,6 +92,18 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         return cursor;
     }
 
+    // Use cursor to find out if nothing was drunk in session
+    public Cursor selectsoberSession(String starttime, String endtime){
+
+        // Open up connection with database
+        SQLiteDatabase soberdb = instance.getWritableDatabase();
+
+        Cursor cursor = soberdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN " +
+                "'" + starttime + "' AND '" + endtime + "'", null);
+
+        return cursor;
+    }
+
     // Use cursor to get drinks in a session
     public Cursor selectSession(String starttime, String endtime, Boolean check) {
 

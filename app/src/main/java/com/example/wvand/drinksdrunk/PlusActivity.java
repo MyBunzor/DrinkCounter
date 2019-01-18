@@ -20,8 +20,7 @@ import java.text.SimpleDateFormat;
 public class PlusActivity extends AppCompatActivity {
 
     DrinkDatabase db;
-    String StoredStart;
-    String StoredEnd;
+    String StoredStart, StoredEnd;
     Boolean check = false;
 
     @Override
@@ -103,7 +102,20 @@ public class PlusActivity extends AppCompatActivity {
 
     // Method that's connected to the trophies-button
     public void toTrophies(View view) {
+
+        // Retrieve start of session, with help of editor under key 'time'
+        SharedPreferences startTime = getSharedPreferences("time", MODE_PRIVATE);
+        StoredStart = startTime.getString("sessionstart", "0");
+
+        // Retrieve end of session, with help of editor under key 'time'
+        SharedPreferences endTime = getSharedPreferences("time", MODE_PRIVATE);
+        StoredEnd = endTime.getString("sessionend", "0");
+
+        // Intent to activity with trophies
         Intent Trophy = new Intent(PlusActivity.this, TrophyActivity.class);
+        Trophy.putExtra("sessionstart", StoredStart);
+        Trophy.putExtra("sessionend", StoredEnd);
+        Trophy.putExtra("switch", check);
         startActivity(Trophy);
     }
 

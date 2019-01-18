@@ -67,6 +67,22 @@ The 8th day was more productive than the 7th, luckily. The application is now ab
 
 It's still partially hardcoded (the Query to get the amount of beers in a session) and ideally should be more dynamic. That's a task for tomorrow.
 
+# day 9
+Each timeperiod can be visualized and has a title with it as well. The index of the y-axis has been improved, now only showing integers. For the yearly and monthly visualizations, however, the index ideally should be relative to size of the consumption. Right now, it's hardcoded. Here's how the weekly consumption now looks:
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20weekly%20visualization.png" width="20%" height="20%"/>
+
+The database and the library are now functioning sufficiently. Next up is the TrophyActivity: a gridview has been added and the constraintlayout has been changed to a linear layout.
+
+# day 10
+Today the basic trophies where set up. A trophy class and adapter were made, images were downloaded and objects instantiated. Right now, four trophies are added to the gridview of the TrophyActivity:
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20TrophyActivity.png" width="20%" height="20%"/>
+
+The user can, as can be seen above, already achieve the first trophy. The weekly, monthly and yearly achievements still need to be implemented with the database. When a trophy is achieved, colour is added.
+
+
+
 
 
 
