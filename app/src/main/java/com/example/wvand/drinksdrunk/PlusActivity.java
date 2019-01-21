@@ -96,7 +96,6 @@ public class PlusActivity extends AppCompatActivity {
         chooseTime.putExtra("sessionstart", StoredStart);
         chooseTime.putExtra("sessionend", StoredEnd);
         chooseTime.putExtra("switch", check);
-
         startActivity(chooseTime);
     }
 
@@ -210,5 +209,12 @@ public class PlusActivity extends AppCompatActivity {
 
         Intent seeHistory = new Intent(PlusActivity.this, HistoryActivity.class);
         startActivity(seeHistory);
+    }
+
+    // Method that directs user to activity where manual input can be given
+    public void toManual(View view) {
+
+        Intent inputManual = new Intent(PlusActivity.this, InputActivity.class);
+        startActivity(inputManual);
     }
 }

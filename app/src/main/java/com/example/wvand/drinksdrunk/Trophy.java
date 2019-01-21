@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 // Class that represents a trophy, with a short description as well
 public class Trophy implements Serializable {
+    private int id;
     private String name, description;
     private int drawableId;
     private boolean achieved;
@@ -14,6 +15,12 @@ public class Trophy implements Serializable {
         this.description = description;
         this.drawableId = drawableId;
         this.achieved = achieved;
+    }
+
+    public Trophy(String name, String description, int drawableId) {
+        this.name = name;
+        this.description = description;
+        this.drawableId = drawableId;
     }
 
     public String getName() {

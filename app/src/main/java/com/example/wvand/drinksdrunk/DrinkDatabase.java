@@ -20,10 +20,12 @@ import static java.time.Instant.MAX;
 
 public class DrinkDatabase extends SQLiteOpenHelper {
 
-    final private static String TAG = "DrinkDatabase";
+    Context context;
 
     private DrinkDatabase(Context context, String name, int version) {
         super(context, name, null, version);
+
+        this.context = context;
     }
 
     // Unique instance of the class DrinkDatabase: only 1 needed
@@ -31,6 +33,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
     // Check if a database was already made: if so, return it, otherwise, create one
     public static DrinkDatabase getInstance(Context context) {
+
         if(instance == null) {
             instance = new DrinkDatabase(context, "instance", 1);
             return instance;
@@ -48,6 +51,126 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         db.execSQL("create table drinks (_id INTEGER PRIMARY KEY AUTOINCREMENT, kind TEXT, " +
                 "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)");
 
+        // Database with trophies, instantiate them immediately
+        db.execSQL("create table trophies (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, " +
+                "description TEXT, timestamp DATETIME, drawableId INTEGER, achieved INTEGER)");
+
+        String trophySessionName = "Sober session";
+        String trophySessionDescription = "You've had a session without drinking alcohol!";
+        int trophySessionInt = 0;
+        String trophyWeekName = "Sober week";
+        String trophyWeekDescription = "You've had a week without drinking alcohol!";
+        int trophyWeekInt = 0;
+        String trophyMonthName = "Sober month";
+        String trophyMonthDescription = "You've had a month without drinking alcohol!";
+        int trophyMonthInt = 0;
+        String trophyYearName = "Sober year";
+        String trophyYearDescription = "Wow! You've made it a full year without drinking alcohol!";
+        int trophyYearInt = 0;
+        String trophyOneSessionName = "Just one";
+        String trophyOneSessionDescription = "You've had a session with just one alcoholic drink!";
+        int trophyOneSessionInt = 0;
+        String threeDaysName = "Three days";
+        String threeDaysDescription = "You've gone three days without drinking alcohol!";
+        int threeDaysInt = 0;
+
+        int drawableSessionID = context.getResources().getIdentifier("sessionprize",
+                "drawable", context.getPackageName());
+        int drawableWeekID = context.getResources().getIdentifier("weekprize",
+                "drawable", context.getPackageName());
+        int drawableMonthID = context.getResources().getIdentifier("monthprize",
+                "drawable", context.getPackageName());
+        int drawableYearID = context.getResources().getIdentifier("yearprize",
+                "drawable", context.getPackageName());
+        int drawableOneID = context.getResources().getIdentifier("onepersession",
+                "drawable", context.getPackageName());
+        int drawableThreeID = context.getResources().getIdentifier("threedaysprice",
+                "drawable", context.getPackageName());
+
+        // Use content values to put trophy data in the database
+        ContentValues contentValuesSession = new ContentValues();
+        ContentValues contentValuesWeek = new ContentValues();
+        ContentValues contentValuesMonth = new ContentValues();
+        ContentValues contentValuesYear = new ContentValues();
+        ContentValues contentValuesOne = new ContentValues();
+        ContentValues contentValuesThree = new ContentValues();
+
+        contentValuesSession.put("name", trophySessionName);
+        contentValuesSession.put("description", trophySessionDescription);
+        contentValuesSession.put("achieved", trophySessionInt);
+        contentValuesSession.put("drawableId", drawableSessionID);
+
+        db.insert("trophies", null, contentValuesSession);
+
+        contentValuesWeek.put("name", trophyWeekName);
+        contentValuesWeek.put("description", trophyWeekDescription);
+        contentValuesWeek.put("achieved", trophyWeekInt);
+        contentValuesWeek.put("drawableId", drawableWeekID);
+
+        db.insert("trophies", null, contentValuesWeek);
+
+        contentValuesMonth.put("name", trophyMonthName);
+        contentValuesMonth.put("description", trophyMonthDescription);
+        contentValuesMonth.put("achieved", trophyMonthInt);
+        contentValuesMonth.put("drawableId", drawableMonthID);
+
+        db.insert("trophies", null, contentValuesMonth);
+
+        contentValuesYear.put("name", trophyYearName);
+        contentValuesYear.put("description", trophyYearDescription);
+        contentValuesYear.put("achieved", trophyYearInt);
+        contentValuesYear.put("drawableId", drawableYearID);
+
+        db.insert("trophies", null, contentValuesYear);
+
+        contentValuesOne.put("name,", trophyOneSessionName);
+        contentValuesOne.put("description", trophyOneSessionDescription);
+        contentValuesOne.put("achieved", trophyOneSessionInt);
+        contentValuesOne.put("drawableId", drawableOneID);
+
+        db.insert("trophies", null, contentValuesOne);
+
+        contentValuesThree.put("name", threeDaysName);
+        contentValuesThree.put("description", threeDaysDescription);
+        contentValuesThree.put("achieved", threeDaysInt);
+        contentValuesThree.put("drawableId", drawableThreeID);
+
+        db.insert("trophies", null, contentValuesThree);
+    }
+
+    // Use Cursor to get (specific) access to table
+    public Cursor selectAll() {
+
+        // Open up connection with the database
+        SQLiteDatabase writabledb = instance.getWritableDatabase();
+
+        // Create cursor variable, select everything and place it in cursor
+        Cursor cursor = writabledb.rawQuery("SELECT * FROM drinks", null);
+
+        return cursor;
+    }
+
+    // Use Cursor to get to trophy data
+    public Cursor selectAllTrophies() {
+
+        // Open up connection with the database
+        SQLiteDatabase writabledb = instance.getWritableDatabase();
+
+        // Create cursor variable, select everything and place it in cursor
+        Cursor cursor = writabledb.rawQuery("SELECT * FROM trophies", null);
+
+        return cursor;
+    }
+
+    public void trophyAchieved(String trophyName){
+
+        System.out.println("Namecheck :" + trophyName + "1");
+
+        // Open up connection with the database
+        SQLiteDatabase writabledb = instance.getWritableDatabase();
+
+        Cursor cursor = writabledb.rawQuery("UPDATE trophies SET achieved = '1' WHERE " +
+                "name == '" + trophyName + "'", null);
     }
 
     // Insert method is called when one of the drinks is plussed
@@ -78,18 +201,6 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
         // Remove the input with the highest number listed in column _id
         deletabledb.execSQL("DELETE FROM drinks WHERE _id IN (SELECT MAX(_id) FROM drinks LIMIT 1)");
-    }
-
-    // Use Cursor to get (specific) access to table
-    public Cursor selectAll() {
-
-        // Open up connection with the database
-        SQLiteDatabase writabledb = instance.getWritableDatabase();
-
-        // Create cursor variable, select everything and place it in cursor
-        Cursor cursor = writabledb.rawQuery("SELECT * FROM drinks", null);
-
-        return cursor;
     }
 
     // Use cursor to find out if nothing was drunk in session
@@ -132,6 +243,8 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
     // Method that selects drinks of past 7 days
     public Cursor selectWeek(){
+
+        System.out.println("First");
 
         // Open up connection with the database
         SQLiteDatabase weekdb = instance.getWritableDatabase();
@@ -182,7 +295,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         return cursor;
     }
 
-    // Method to check how many and what kind of drinks were drunk in session
+    // Select all drinks of specified kind in a session
     public Cursor selectsessionKind(String starttime, String endtime, Boolean check, String kind) {
 
         // Open up connection with the database
@@ -208,6 +321,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         }
     }
 
+    // Select all drinks of specified kind in a week
     public Cursor selectkindWeek(String kind) {
 
         // Open up connection with the database
@@ -235,7 +349,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         return weekCursor;
     }
 
-    // Method that selects drinks from last month
+    // Select all drinks of specified kind in a month
     public Cursor selectkindMonth(String kind) {
 
         // Open up connection with the database
@@ -247,6 +361,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         return monthCursor;
     }
 
+    // Select all drinks of specified kind in a year
     public Cursor selectkindYear(String kind) {
 
         // Open up connection with the database

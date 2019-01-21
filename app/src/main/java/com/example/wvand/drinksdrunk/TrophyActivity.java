@@ -1,6 +1,7 @@
 package com.example.wvand.drinksdrunk;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,39 +22,14 @@ public class TrophyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trophy);
 
-        // Creating list of trophies
-        ArrayList<Trophy> trophies = new ArrayList<>();
+        // Get database to check data and create trophies
+        db = DrinkDatabase.getInstance(getApplicationContext());
 
-        // Adding drawable id for trophies
-        int drawableSessionID = this.getResources().getIdentifier("sessionprize",
-                "drawable", this.getPackageName());
-        int drawableWeekID = this.getResources().getIdentifier("weekprize",
-                "drawable", this.getPackageName());
-        int drawableMonthID = this.getResources().getIdentifier("monthprize",
-                "drawable", this.getPackageName());
-        int drawableYearID = this.getResources().getIdentifier("yearprize",
-                "drawable", this.getPackageName());
-
-        // Instantiate trophy objects
-        Trophy sessionPrize = new Trophy("Sober session", "You've had a session " +
-                "without drinking alcohol!", drawableSessionID, false);
-        Trophy weekPrize = new Trophy("Sober week", "You've had a week without " +
-                "drinking alcohol!", drawableWeekID, false);
-        Trophy monthPrize = new Trophy("Sober month", "You've had a month without" +
-                "drinking alcohol!", drawableMonthID, false);
-        Trophy yearPrize = new Trophy("Sober year", " Wow! You've made it a full " +
-                "year without drinking alcohol!", drawableYearID, false);
-
-
-
-        // Adding objects to trophies list
-        trophies.add(sessionPrize);
-        trophies.add(weekPrize);
-        trophies.add(monthPrize);
-        trophies.add(yearPrize);
+        // Creating trophies
+        Cursor cursorTrophy = db.selectAllTrophies();
 
         // Creating trophy adapter
-        TrophyAdapter adapter = new TrophyAdapter(this, R.layout.grid_item, trophies);
+        TrophyAdapter adapter = new TrophyAdapter(this, R.layout.grid_item, cursorTrophy);
 
         // Set adapter on TrophyActivity
         GridView trophyGrid = findViewById(R.id.trophyGrid);
@@ -65,19 +41,40 @@ public class TrophyActivity extends AppCompatActivity {
         sessionEnd = (String) fromPlus.getSerializableExtra("sessionend");
         check = (Boolean) fromPlus.getSerializableExtra("switch");
 
-        // Get database to check data
-        db = DrinkDatabase.getInstance(getApplicationContext());
-
         // Use cursor to find out what was drunk in session, only if session is completed
         if (sessionEnd != null) {
             Cursor cursor = db.selectsoberSession(sessionStart, sessionEnd);
 
-            // If no drinks were drunk, set session trophy as achieved
+            // If no drinks were drunk, set session trophy as achieved in database
             if (cursor.getCount() == 0) {
-                System.out.println("Set it visible!");
-                sessionPrize.setAchieved(true);
 
+                db.trophyAchieved("Sober session");
             }
+        }
+
+        // Use cursor to find out what was drunk in past week
+        Cursor weekCursor = db.selectWeek();
+
+        // If nothing was drunk, set week trophy as achieved
+        if (weekCursor.getCount() == 0) {
+
+            System.out.println("First");
+
+            db.trophyAchieved("Sober week");
+        }
+
+        // Use cursor to find out what was drunk in last month
+        Cursor monthCursor = db.selectMonth();
+
+        if (monthCursor.getCount() == 0) {
+            db.trophyAchieved("Sober month");
+        }
+
+        // Use cursor to find out what was drunk in last year
+        Cursor yearCursor = db.selectYear();
+
+        if (yearCursor.getCount() == 0) {
+            db.trophyAchieved("Sober year");
         }
     }
 }

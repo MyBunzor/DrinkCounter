@@ -1,54 +1,41 @@
 package com.example.wvand.drinksdrunk;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+public class TrophyAdapter extends ResourceCursorAdapter {
 
-public class TrophyAdapter extends ArrayAdapter<Trophy> {
-
-    ArrayList<Trophy> trophies;
-    DrinkDatabase db;
-
-
-    public TrophyAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Trophy> objects) {
-        super(context, resource, objects);
-        this.trophies = objects;
+    public TrophyAdapter(Context context, int layout, Cursor c) {
+        super(context, layout, c);
     }
 
-    // Method that fills each griditem with a trophy
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.grid_item, parent, false);
-        }
+    public void bindView(View view, Context context, Cursor cursor) {
 
-        // Find the views in the grid_item xml to fill them
-        ImageView trophyImage = convertView.findViewById(R.id.trophyImage);
-        TextView trophyName = convertView.findViewById(R.id.trophyName);
+        // Retrieving views to set them
+        ImageView trophyImage = view.findViewById(R.id.trophyImage);
+        TextView trophyName = view.findViewById(R.id.trophyName);
 
-        // Getting data from the trophies list
-        int drawable = trophies.get(position).getDrawableId();
-        String name = trophies.get(position).getName();
-        boolean achieved = trophies.get(position).getAchieved();
+        // Get trophy name, image and boolean (to set black or white in image) from cursor
+        String nameTrophy = cursor.getString(cursor.getColumnIndex("name"));
+        int imageTrophy = cursor.getInt(cursor.getColumnIndex("drawableId"));
+        int achieved = cursor.getInt(cursor.getColumnIndex("achieved"));
 
-        // Set the views with that data
-        trophyImage.setImageResource(drawable);
-        trophyName.setText(name);
+        System.out.println("Int check : " + achieved);
+        System.out.println("name check: " + nameTrophy);
+
+        // Set the views with retrieved data
+        trophyName.setText(nameTrophy);
 
         // Set images to black and white if trophies aren't achieved
-        if(achieved == false) {
+        if(achieved == 0) {
 
             ColorMatrix matrix = new ColorMatrix();
             matrix.setSaturation(0);
@@ -57,6 +44,38 @@ public class TrophyAdapter extends ArrayAdapter<Trophy> {
             trophyImage.setColorFilter(filter);
         }
 
-        return convertView;
+        switch (nameTrophy) {
+            case "Sober session":
+
+                trophyImage.setImageResource(R.drawable.sessionprize);
+                break;
+
+            case "Sober week":
+
+                System.out.println("HEY!");
+
+                trophyImage.setImageResource(R.drawable.weekprize);
+                break;
+
+            case "Sober month":
+
+                trophyImage.setImageResource(R.drawable.monthprize);
+                break;
+
+            case "Sober year":
+
+                trophyImage.setImageResource(R.drawable.yearprize);
+                break;
+
+            case "Just one":
+
+                trophyImage.setImageResource(R.drawable.onepersession);
+                break;
+
+            case "Three days":
+
+                trophyImage.setImageResource(R.drawable.threedaysprice);
+                break;
+        }
     }
 }

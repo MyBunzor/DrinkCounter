@@ -137,20 +137,21 @@
 
     <Button
         android:id="@+id/dataButton"
-        android:layout_width="wrap_content"
+        android:layout_width="102dp"
         android:layout_height="42dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/arsenal"
         android:onClick="toTime"
         android:text="Data"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/trophiesButton"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/historyButton"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/trophiesButton"
-        android:layout_width="wrap_content"
+        android:layout_width="102dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="28dp"
@@ -158,31 +159,46 @@
         android:onClick="toTrophies"
         android:text="Trophies"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/undoButton"
-        android:layout_width="wrap_content"
+        android:layout_width="102dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/arsenal"
         android:onClick="undoDrink"
         android:text="UNDO"
-        app:layout_constraintBottom_toTopOf="@+id/dataButton"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/trophiesButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/historyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="102dp"
+        android:layout_height="42dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/arsenal"
         android:onClick="toHistory"
         android:text="History"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/switchSession"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/addmanButton"
+        android:layout_width="102dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="toManual"
+        android:text="Add manually"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/craftbeer" />
 
 </android.support.constraint.ConstraintLayout>

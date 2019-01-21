@@ -81,7 +81,8 @@ Today the basic trophies where set up. A trophy class and adapter were made, ima
 
 The user can, as can be seen above, already achieve the first trophy. The weekly, monthly and yearly achievements still need to be implemented with the database. When a trophy is achieved, colour is added.
 
-
+# day 11
+A second database is made where all trophies are stored. Its columns are the attributes of the Trophy class. Each row represens another trophy. It didn't seem possible to permanently save the 'achieved field' of instances of the Trophy class: now, if a trophy is being achieved, it's registered in the database. This change remains. The Trophy class now seems irrelevant: it won't be deleted yet, however. Besides permanently saving whether a trophy was achieved or not, it can now also be registered how many times a trophy is achieved.
 
 
 
