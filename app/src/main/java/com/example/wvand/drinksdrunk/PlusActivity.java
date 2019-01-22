@@ -16,17 +16,22 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class PlusActivity extends AppCompatActivity {
 
     DrinkDatabase db;
     String StoredStart, StoredEnd;
     Boolean check = false;
+    SharedPreferences prefs = null;
+    public static long launchLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plus);
+
+        prefs = getSharedPreferences("com.example.wvand.drinksdrunk", MODE_PRIVATE);
 
         // Retrieve database
         db = DrinkDatabase.getInstance(getApplicationContext());
@@ -78,6 +83,26 @@ public class PlusActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (prefs.getBoolean("firstrun", true)) {
+
+            // Get date in milliseconds  of first time app is launched
+            Calendar cal = Calendar.getInstance();
+            launchLong = cal.getTimeInMillis();
+
+            prefs.edit().putBoolean("firstrun", false).commit();
+
+            prefs.edit().putLong("launchLong", launchLong);
+        }
+
+        launchLong = prefs.getLong("launchLong", launchLong);
+
+        System.out.println("THIS IS: "+ launchLong);
     }
 
     // Method that's connected to the data-button

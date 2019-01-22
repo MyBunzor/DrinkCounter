@@ -69,6 +69,8 @@ public class TrophyAdapter extends ResourceCursorAdapter {
 
             case "Just one":
 
+                System.out.print("Just one case");
+
                 trophyImage.setImageResource(R.drawable.onepersession);
                 break;
 

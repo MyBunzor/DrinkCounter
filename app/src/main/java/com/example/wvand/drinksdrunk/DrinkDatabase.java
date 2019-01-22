@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static android.database.DatabaseUtils.dumpCursorToString;
 import static java.time.Instant.MAX;
 
 public class DrinkDatabase extends SQLiteOpenHelper {
@@ -123,12 +124,12 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
         db.insert("trophies", null, contentValuesYear);
 
-        contentValuesOne.put("name,", trophyOneSessionName);
+        contentValuesOne.put("name", trophyOneSessionName);
         contentValuesOne.put("description", trophyOneSessionDescription);
         contentValuesOne.put("achieved", trophyOneSessionInt);
         contentValuesOne.put("drawableId", drawableOneID);
 
-        db.insert("trophies", null, contentValuesOne);
+        db.insertOrThrow("trophies", null, contentValuesOne);
 
         contentValuesThree.put("name", threeDaysName);
         contentValuesThree.put("description", threeDaysDescription);
@@ -169,8 +170,10 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         // Open up connection with the database
         SQLiteDatabase writabledb = instance.getWritableDatabase();
 
-        Cursor cursor = writabledb.rawQuery("UPDATE trophies SET achieved = '1' WHERE " +
-                "name == '" + trophyName + "'", null);
+        Cursor cursor = writabledb.rawQuery("UPDATE trophies SET achieved = 1 WHERE " +
+                "name == '"+trophyName+"'", null);
+
+        System.out.println("What's in there: " + cursor.getCount());
     }
 
     // Insert method is called when one of the drinks is plussed
@@ -243,8 +246,6 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
     // Method that selects drinks of past 7 days
     public Cursor selectWeek(){
-
-        System.out.println("First");
 
         // Open up connection with the database
         SQLiteDatabase weekdb = instance.getWritableDatabase();

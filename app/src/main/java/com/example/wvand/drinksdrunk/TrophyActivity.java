@@ -1,15 +1,22 @@
 package com.example.wvand.drinksdrunk;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import static android.database.DatabaseUtils.dumpCursorToString;
+import static com.example.wvand.drinksdrunk.PlusActivity.launchLong;
 
 public class TrophyActivity extends AppCompatActivity {
 
@@ -28,14 +35,9 @@ public class TrophyActivity extends AppCompatActivity {
         // Creating trophies
         Cursor cursorTrophy = db.selectAllTrophies();
 
-        // Creating trophy adapter
-        TrophyAdapter adapter = new TrophyAdapter(this, R.layout.grid_item, cursorTrophy);
+        Log.d("Cursor", dumpCursorToString(cursorTrophy));
 
-        // Set adapter on TrophyActivity
-        GridView trophyGrid = findViewById(R.id.trophyGrid);
-        trophyGrid.setAdapter(adapter);
-
-        // Fill time variables, use them to check what was drunk in session
+        // Fill time variables, use them to check what was drunk in time periods
         Intent fromPlus = getIntent();
         sessionStart = (String) fromPlus.getSerializableExtra("sessionstart");
         sessionEnd = (String) fromPlus.getSerializableExtra("sessionend");
@@ -50,31 +52,70 @@ public class TrophyActivity extends AppCompatActivity {
 
                 db.trophyAchieved("Sober session");
             }
+
+            // If just one drink was drunk, set Just One trophy as achieved
+            else if (cursor.getCount() == 1) {
+
+                System.out.println("Did you get here?");
+
+                db.trophyAchieved("Just one");
+            }
         }
 
-        // Use cursor to find out what was drunk in past week
-        Cursor weekCursor = db.selectWeek();
+        // Get time in millis right now
+        Calendar cal = Calendar.getInstance();
+        long actual = cal.getTimeInMillis();
 
-        // If nothing was drunk, set week trophy as achieved
-        if (weekCursor.getCount() == 0) {
+        // Create long with amount of milliseconds in week
+        long weekMillis = 1000 * 60 * 60 * 24 * 7;
 
-            System.out.println("First");
+        // If app is launched longer than week ago, find out how much was drunk in week
+        if ((actual - launchLong) > weekMillis) {
 
-            db.trophyAchieved("Sober week");
+            System.out.println("Got there!");
+            // Use cursor to find out what was drunk in past week
+            Cursor weekCursor = db.selectWeek();
+
+            // If nothing was drunk, set week trophy as achieved
+            if (weekCursor.getCount() == 0) {
+
+                System.out.println("Weekcursor!");
+
+                db.trophyAchieved("Sober week");
+            }
         }
 
-        // Use cursor to find out what was drunk in last month
-        Cursor monthCursor = db.selectMonth();
+        // Create long with amount of milliseconds in month
+        long monthMillis = weekMillis * 4;
 
-        if (monthCursor.getCount() == 0) {
-            db.trophyAchieved("Sober month");
+        if ((actual - launchLong) > monthMillis) {
+
+            // Use cursor to find out what was drunk in last month
+            Cursor monthCursor = db.selectMonth();
+
+            if (monthCursor.getCount() == 0) {
+                db.trophyAchieved("Sober month");
+            }
         }
 
-        // Use cursor to find out what was drunk in last year
-        Cursor yearCursor = db.selectYear();
+        // Create long with amount of milliseconds in year
+        long yearMillis = monthMillis * 52;
 
-        if (yearCursor.getCount() == 0) {
-            db.trophyAchieved("Sober year");
+        if ((actual - launchLong) > yearMillis) {
+
+            // Use cursor to find out what was drunk in last year
+            Cursor yearCursor = db.selectYear();
+
+            if (yearCursor.getCount() == 0) {
+                db.trophyAchieved("Sober year");
+            }
         }
+
+        // Creating trophy adapter
+        TrophyAdapter adapter = new TrophyAdapter(this, R.layout.grid_item, cursorTrophy);
+
+        // Set adapter on TrophyActivity
+        GridView trophyGrid = findViewById(R.id.trophyGrid);
+        trophyGrid.setAdapter(adapter);
     }
 }

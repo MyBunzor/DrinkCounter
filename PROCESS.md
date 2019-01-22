@@ -84,12 +84,11 @@ The user can, as can be seen above, already achieve the first trophy. The weekly
 # day 11
 A second database is made where all trophies are stored. Its columns are the attributes of the Trophy class. Each row represens another trophy. It didn't seem possible to permanently save the 'achieved field' of instances of the Trophy class: now, if a trophy is being achieved, it's registered in the database. This change remains. The Trophy class now seems irrelevant: it won't be deleted yet, however. Besides permanently saving whether a trophy was achieved or not, it can now also be registered how many times a trophy is achieved.
 
+# day 12
+The new trophy database isn't functioning flawless yet. It's still a little buggy (sometimes crashes for no reason) and (it seems randomly) sometimes shows trophies that aren't achieved yet. Here's what the Trophy Activity looks like when two trophies are achieved:
 
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20TrophyActivity2.png" width="20%" height="20%"/>
 
-
-
-
-
-
-
-
+When the database is functioning properly (that'll be one task for day 13), these to do's still need to be implemented this week:
+- A way the user can manually input drinks (in case a phonebattery is empty or a phone is forgotten;
+- Push notifications (based on the amount of drinks that are drunk / trophies that are almost achieved).
