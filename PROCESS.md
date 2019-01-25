@@ -92,3 +92,29 @@ The new trophy database isn't functioning flawless yet. It's still a little bugg
 When the database is functioning properly (that'll be one task for day 13), these to do's still need to be implemented this week:
 - A way the user can manually input drinks (in case a phonebattery is empty or a phone is forgotten;
 - Push notifications (based on the amount of drinks that are drunk / trophies that are almost achieved).
+
+# day 13
+Today an activity where the user add a drink and manually input a date and time as well was added to the application. Here's how it looks:
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20InputActivity.png" width="20%" height="20%"/>
+
+The background isn't definite yet. The layout still has to be improved: I'm only experimenting with colours at this point.
+
+An improvement for this activity would be to show what datetime the user has chosen. Otherwise, it can easily be forgotten, or the user has to check in the HistoryActivity, which isn't user-friendly.
+
+# day 14
+Push notifications have been added to the application. When a user adds a drink, he's being reminded not to drink and drive:
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20PushNotification.png" width="20%" height="20%"/>
+
+More push notifications, however, should be added:
+- When a user has achieved a trophy, a notification should pop up that is also clickable and will lead user to TrophyActivity;
+- When a trophy is almost achieved (week, month, three days?);
+
+The database is improved as well. Instead of an update statement with SQL, a ContentValues variable is now being used to update the table.
+
+# day 15
+The InputActivity has been altered: the user can now see what date and time he chose.
+
+The PlusActivity needs some changes as well. The add buttons for drinks there where quite small, so I've come up with a new design. This isn't final yet though.
+
