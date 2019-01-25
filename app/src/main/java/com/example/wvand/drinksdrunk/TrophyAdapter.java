@@ -25,7 +25,6 @@ public class TrophyAdapter extends ResourceCursorAdapter {
 
         // Get trophy name, image and boolean (to set black or white in image) from cursor
         String nameTrophy = cursor.getString(cursor.getColumnIndex("name"));
-        int imageTrophy = cursor.getInt(cursor.getColumnIndex("drawableId"));
         int achieved = cursor.getInt(cursor.getColumnIndex("achieved"));
 
         System.out.println("Int check : " + achieved);
@@ -51,8 +50,6 @@ public class TrophyAdapter extends ResourceCursorAdapter {
                 break;
 
             case "Sober week":
-
-                System.out.println("HEY!");
 
                 trophyImage.setImageResource(R.drawable.weekprize);
                 break;

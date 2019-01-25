@@ -1,11 +1,16 @@
 package com.example.wvand.drinksdrunk;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -18,6 +23,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.example.wvand.drinksdrunk.AppNotification.CHANNEL_1_ID;
+
 public class PlusActivity extends AppCompatActivity {
 
     DrinkDatabase db;
@@ -25,11 +32,15 @@ public class PlusActivity extends AppCompatActivity {
     Boolean check = false;
     SharedPreferences prefs = null;
     public static long launchLong;
+    private NotificationManagerCompat notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plus);
+
+        // Fill instantiated notification manager to send notifications
+        notificationManager = NotificationManagerCompat.from(this);
 
         prefs = getSharedPreferences("com.example.wvand.drinksdrunk", MODE_PRIVATE);
 
@@ -83,8 +94,10 @@ public class PlusActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
+    // Method that captures the date of first launch: useful for trophies
     @Override
     protected void onResume() {
         super.onResume();
@@ -93,16 +106,49 @@ public class PlusActivity extends AppCompatActivity {
 
             // Get date in milliseconds  of first time app is launched
             Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_MONTH, -50);
             launchLong = cal.getTimeInMillis();
 
             prefs.edit().putBoolean("firstrun", false).commit();
 
-            prefs.edit().putLong("launchLong", launchLong);
+            // Store launch date permanently
+            prefs.edit().putLong("launchLong", launchLong).commit();
         }
 
+        // Retrieve launch date out of stored preferences
         launchLong = prefs.getLong("launchLong", launchLong);
 
-        System.out.println("THIS IS: "+ launchLong);
+        System.out.println("Long:" + launchLong);
+
+        // Get time right now
+        Calendar cal = Calendar.getInstance();
+        long actual = cal.getTimeInMillis();
+
+        // Get time of six days ago
+        cal.add(Calendar.DAY_OF_MONTH, -6);
+        long sixDays = cal.getTimeInMillis();
+
+        // If six days have passed, check if week trophy is almost achieved
+        long sixdaysPeriod = 1000 * 60 * 60 * 24 * 6;
+
+        // Six days since launch have passed
+        if (actual - launchLong > sixdaysPeriod) {
+            Cursor cursor = db.selectSixDays();
+
+            if (cursor.getCount() == 0) {
+
+                // Notify user that week trophy is only one day away
+                Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.notificationglass)
+                        .setContentTitle("Almost there!!")
+                        .setContentText("Just one more day without alcohol to achieve a new trophy!")
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+
+                notificationManager.notify(1, notification);
+            }
+        }
     }
 
     // Method that's connected to the data-button
@@ -162,7 +208,6 @@ public class PlusActivity extends AppCompatActivity {
         // Record moment of adding drink
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         String format = simpleDateFormat.format(new java.util.Date());
-        System.out.println("format: "+ format);
 
         // Create drink object with data above, then insert it in database
         Drink drink = new Drink(kind, format);
@@ -211,6 +256,17 @@ public class PlusActivity extends AppCompatActivity {
                 craftbeer.setEnabled(true);
             }
         }, 1*5*1000);
+
+        // Create notification that tells user to not drink and drive
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.notificationglass)
+                .setContentTitle("Remember..")
+                .setContentText("...to enjoy your drink. Don't drive!")
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+
+        notificationManager.notify(1, notification);
     }
 
     // Method that deletes last drink added

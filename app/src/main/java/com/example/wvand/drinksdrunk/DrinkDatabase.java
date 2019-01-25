@@ -163,17 +163,42 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         return cursor;
     }
 
+    // Method that sets trophy as achieved
     public void trophyAchieved(String trophyName){
-
-        System.out.println("Namecheck :" + trophyName + "1");
 
         // Open up connection with the database
         SQLiteDatabase writabledb = instance.getWritableDatabase();
 
-        Cursor cursor = writabledb.rawQuery("UPDATE trophies SET achieved = 1 WHERE " +
-                "name == '"+trophyName+"'", null);
+//        Cursor cursor = writabledb.rawQuery("UPDATE trophies SET achieved = 1 WHERE name == '"+trophyName+"'", null);
+//
+//        cursor.close();
 
-        System.out.println("What's in there: " + cursor.getCount());
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("achieved", 1);
+
+        writabledb.update("trophies", contentValues, "name= ?", new String[]{trophyName});
+    }
+
+    // Method that sets Just One trophy back
+    public void justoneUndone(String JustOne){
+
+        // Open up connection with the database
+        SQLiteDatabase writabledb = instance.getWritableDatabase();
+
+        Cursor cursor = writabledb.rawQuery("UPDATE trophies SET achieved = 0 WHERE name == '"+JustOne+"'", null);
+
+        cursor.close();
+    }
+
+    public Cursor checkTrophies(String trophyName) {
+
+        // Open up connection with the database
+        SQLiteDatabase writabledb = instance.getWritableDatabase();
+
+        Cursor cursor = writabledb.rawQuery("SELECT achieved FROM trophies WHERE " +
+                "name == '"+trophyName+"' AND achieved == 1", null);
+
+        return cursor;
     }
 
     // Insert method is called when one of the drinks is plussed
@@ -253,7 +278,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         // Get today's date..
         Calendar cal = Calendar.getInstance();
         long actual = cal.getTimeInMillis();
-        Date datenow = new Date(actual);
+        Date dateNow = new Date(actual);
 
         // ..and date from 7 days ago
         cal.add(Calendar.DAY_OF_MONTH, -7);
@@ -262,12 +287,40 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
         // Format to SimpleDateFormat to work with SQLite
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-        String now = simpleDateFormat.format(datenow);
+        String now = simpleDateFormat.format(dateNow);
         String lastWeek = simpleDateFormat.format(lastweek);
 
         // Get cursor to select week period
         Cursor weekCursor = weekdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN " +
                 "'" + lastWeek + "' AND '"+ now + "'",null);
+
+        return weekCursor;
+    }
+
+    // Method that selects drinks of past 6 days
+    public Cursor selectSixDays() {
+
+        // Open up connection with the database
+        SQLiteDatabase weekdb = instance.getWritableDatabase();
+
+        // Get today's date..
+        Calendar cal = Calendar.getInstance();
+        long actual = cal.getTimeInMillis();
+        Date datenow = new Date(actual);
+
+        // ..and date from 7 days ago
+        cal.add(Calendar.DAY_OF_MONTH, -6);
+        long week = cal.getTimeInMillis();
+        Date sixDays = new Date(week);
+
+        // Format to SimpleDateFormat to work with SQLite
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String now = simpleDateFormat.format(datenow);
+        String daysSix = simpleDateFormat.format(sixDays);
+
+        // Get cursor to select week period
+        Cursor weekCursor = weekdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN " +
+                "'" + daysSix + "' AND '" + now + "'", null);
 
         return weekCursor;
     }
