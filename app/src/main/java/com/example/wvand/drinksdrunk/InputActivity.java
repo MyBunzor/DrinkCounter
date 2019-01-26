@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -80,9 +81,8 @@ public class InputActivity extends AppCompatActivity implements DatePickerDialog
     public void addDrink(View view) {
 
         // Find out which drink was plussed with view
-        Button clicked = (Button) view;
-        String olddrink = (String) clicked.getText();
-        String kind = olddrink.replace("+ ", "");
+        ImageView clicked = (ImageView) view;
+        String kind = (String) clicked.getContentDescription();
 
         // Create drink object with data above, then insert it in database
         if (userDateTime == null) {

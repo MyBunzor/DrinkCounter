@@ -7,68 +7,75 @@
     android:layout_height="match_parent"
     tools:context=".PlusActivity">
 
-    <Button
-        android:id="@+id/beer"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="addDrink"
-        android:background="#2196F3"
-        android:text="+ beer"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/wine"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="addDrink"
-        android:text="+ wine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beer" />
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="69dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="28dp"
+        android:fontFamily="@font/arsenal"
+        android:text="History"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView13"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/mixed"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="addDrink"
-        android:text="+ mixed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wine" />
+    <ImageView
+    android:id="@+id/mixedplus"
+    android:layout_width="37dp"
+    android:layout_height="55dp"
+    android:layout_marginStart="48dp"
+    android:layout_marginTop="64dp"
+    app:layout_constraintStart_toStartOf="@+id/textView10"
+    app:layout_constraintTop_toTopOf="@+id/mixed"
+    app:srcCompat="@drawable/plus" />
 
-    <Button
-        android:id="@+id/liquor"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="addDrink"
-        android:text="+ liquor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mixed" />
+    <ImageView
+        android:id="@+id/liquorplus"
+        android:layout_width="37dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="@+id/liquor"
+        app:srcCompat="@drawable/plus" />
 
-    <Button
-        android:id="@+id/craftbeer"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="addDrink"
-        android:text="+ craftbeer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/liquor" />
+    <ImageView
+        android:id="@+id/craftbeerplus"
+        android:layout_width="37dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="@+id/craftbeer"
+        app:srcCompat="@drawable/plus" />
+
+    <ImageView
+        android:id="@+id/cocktailplus"
+        android:layout_width="37dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/cocktail"
+        app:srcCompat="@drawable/plus" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="81dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/arsenal"
+        android:text="Craftbeer"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/craftbeer" />
 
     <Switch
         android:id="@+id/switchSession"
         android:layout_width="130dp"
         android:layout_height="35dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginBottom="28dp"
         android:fontFamily="@font/arsenal"
         android:text="Session"
@@ -77,130 +84,213 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/wine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="wine"
+        android:onClick="addDrink"
+        app:layout_constraintStart_toEndOf="@+id/beer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wine" />
+
+    <ImageView
+        android:id="@+id/beer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="beer"
+        android:onClick="addDrink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/beer" />
+
+    <ImageView
+        android:id="@+id/cocktail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="cocktail"
+        android:onClick="addDrink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cocktail" />
+
+    <ImageView
+        android:id="@+id/craftbeer"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:contentDescription="craftsbeer"
+        android:onClick="addDrink"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beer"
+        app:srcCompat="@drawable/craftsbeer" />
+
     <TextView
-        android:id="@+id/textBeer"
-        android:layout_width="116dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:id="@+id/textView2"
+        android:layout_width="69dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/arsenal"
         android:text="Beer"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/beer" />
 
     <TextView
-        android:id="@+id/textWine"
-        android:layout_width="116dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:id="@+id/textView3"
+        android:layout_width="69dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/arsenal"
         android:text="Wine"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textBeer" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/wine" />
 
     <TextView
-        android:id="@+id/textMixed"
-        android:layout_width="116dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:id="@+id/textView4"
+        android:layout_width="69dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:fontFamily="@font/arsenal"
-        android:text="Mixed"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textWine" />
+        android:text="Cocktail"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cocktail" />
+
+    <ImageView
+        android:id="@+id/liquor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:contentDescription="liquor"
+        android:onClick="addDrink"
+        app:layout_constraintStart_toEndOf="@+id/craftbeer"
+        app:layout_constraintTop_toBottomOf="@+id/wine"
+        app:srcCompat="@drawable/liquor" />
 
     <TextView
-        android:id="@+id/textLiquor"
-        android:layout_width="116dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:id="@+id/textView9"
+        android:layout_width="81dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/arsenal"
         android:text="Liquor"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textMixed" />
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/liquor" />
+
+    <ImageView
+        android:id="@+id/mixed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="mixed"
+        android:onClick="addDrink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView4"
+        app:srcCompat="@drawable/mixed" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="116dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:id="@+id/textView10"
+        android:layout_width="81dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
         android:fontFamily="@font/arsenal"
-        android:text="Craft Beer"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLiquor" />
+        android:text="Mixed"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mixed" />
 
-    <Button
-        android:id="@+id/dataButton"
-        android:layout_width="102dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/arsenal"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="81dp"
+        android:layout_height="76dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:onClick="toTime"
-        android:text="Data"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/historyButton"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/barchart" />
 
-    <Button
-        android:id="@+id/trophiesButton"
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="81dp"
+        android:layout_height="76dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="28dp"
-        android:fontFamily="@font/arsenal"
         android:onClick="toTrophies"
-        android:text="Trophies"
-        android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/undoButton"
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/arsenal"
-        android:onClick="undoDrink"
-        android:text="UNDO"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/trophiesButton"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/historyButton"
-        android:layout_width="102dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/arsenal"
-        android:onClick="toHistory"
-        android:text="History"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/switchSession"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/addmanButton"
-        android:layout_width="102dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="toManual"
-        android:text="Add manually"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/craftbeer" />
+        app:srcCompat="@drawable/trophy" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="undoDrink"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:srcCompat="@drawable/undo" />
+
+    <ImageView
+        android:id="@+id/beerplus"
+        android:layout_width="37dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/beer"
+        app:srcCompat="@drawable/plus" />
+
+    <ImageView
+        android:id="@+id/wineplus"
+        android:layout_width="37dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="@+id/wine"
+        app:srcCompat="@drawable/plus" />
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="79dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:onClick="toManual"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:srcCompat="@drawable/manualhand" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="83dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="toHistory"
+        app:layout_constraintBottom_toTopOf="@+id/switchSession"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/history" />
 
 </android.support.constraint.ConstraintLayout>

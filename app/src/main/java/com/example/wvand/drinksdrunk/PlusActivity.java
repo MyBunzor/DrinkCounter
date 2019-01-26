@@ -5,15 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -91,7 +91,6 @@ public class PlusActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     // Method that captures the date of first launch: useful for trophies
@@ -198,9 +197,8 @@ public class PlusActivity extends AppCompatActivity {
         toast.show();
 
         // Find out which drink was plussed with view
-        Button clicked = (Button) view;
-        String olddrink = (String) clicked.getText();
-        String kind = olddrink.replace("+ ", "");
+        ImageView clicked = (ImageView) view;
+        String kind = (String) clicked.getContentDescription();
 
         // Record moment of adding drink
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
@@ -212,45 +210,129 @@ public class PlusActivity extends AppCompatActivity {
         db = DrinkDatabase.getInstance(getApplicationContext());
         db.insert(drink);
 
-        // When user inputted a drink, disable buttons for 5 sec
-        final Button beer = findViewById(R.id.beer);
-        final Button wine = findViewById(R.id.wine);
-        final Button mixed = findViewById(R.id.mixed);
-        final Button liquor = findViewById(R.id.liquor);
-        final Button craftbeer = findViewById(R.id.craftbeer);
+        // Find views to disable them after user added drink
+        final ImageView beer = findViewById(R.id.beer);
+        final ImageView wine = findViewById(R.id.wine);
+        final ImageView mixed = findViewById(R.id.mixed);
+        final ImageView liquor = findViewById(R.id.liquor);
+        final ImageView craftbeer = findViewById(R.id.craftbeer);
+        final ImageView cocktail = findViewById(R.id.cocktail);
+
+        final ImageView beerPlus = findViewById(R.id.beerplus);
+        final ImageView winePlus = findViewById(R.id.wineplus);
+        final ImageView mixedPlus = findViewById(R.id.mixedplus);
+        final ImageView liquorPlus = findViewById(R.id.liquorplus);
+        final ImageView craftbeerPlus = findViewById(R.id.craftbeerplus);
+        final ImageView cocktailPlus = findViewById(R.id.cocktailplus);
+
+        // When user inputted a drink, disable views for 5 sec
         beer.setEnabled(false);
         wine.setEnabled(false);
         mixed.setEnabled(false);
         liquor.setEnabled(false);
         craftbeer.setEnabled(false);
+        cocktail.setEnabled(false);
+
+        ColorMatrix matrix = new ColorMatrix();
+        matrix.setSaturation(0);
+
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+        beerPlus.setColorFilter(filter);
+        winePlus.setColorFilter(filter);
+        mixedPlus.setColorFilter(filter);
+        liquorPlus.setColorFilter(filter);
+        craftbeerPlus.setColorFilter(filter);
+        cocktailPlus.setColorFilter(filter);
 
         beer.postDelayed(new Runnable() {
             public void run() {
                 beer.setEnabled(true);
+
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(255);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                beerPlus.setColorFilter(filter);
+                winePlus.setColorFilter(filter);
+                mixedPlus.setColorFilter(filter);
+                liquorPlus.setColorFilter(filter);
+                craftbeerPlus.setColorFilter(filter);
+                cocktailPlus.setColorFilter(filter);
             }
         }, 1*5*1000);
-
         wine.postDelayed(new Runnable() {
             public void run() {
                 wine.setEnabled(true);
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(255);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                beerPlus.setColorFilter(filter);
+                winePlus.setColorFilter(filter);
+                mixedPlus.setColorFilter(filter);
+                liquorPlus.setColorFilter(filter);
+                craftbeerPlus.setColorFilter(filter);
+                cocktailPlus.setColorFilter(filter);
             }
         }, 1*5*1000);
-
         mixed.postDelayed(new Runnable() {
             public void run() {
                 mixed.setEnabled(true);
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(255);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                beerPlus.setColorFilter(filter);
+                winePlus.setColorFilter(filter);
+                mixedPlus.setColorFilter(filter);
+                liquorPlus.setColorFilter(filter);
+                craftbeerPlus.setColorFilter(filter);
+                cocktailPlus.setColorFilter(filter);
             }
         }, 1*5*1000);
-
         liquor.postDelayed(new Runnable() {
             public void run() {
                 liquor.setEnabled(true);
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(255);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                beerPlus.setColorFilter(filter);
+                winePlus.setColorFilter(filter);
+                mixedPlus.setColorFilter(filter);
+                liquorPlus.setColorFilter(filter);
+                craftbeerPlus.setColorFilter(filter);
+                cocktailPlus.setColorFilter(filter);
             }
         }, 1*5*1000);
-
         craftbeer.postDelayed(new Runnable() {
             public void run() {
                 craftbeer.setEnabled(true);
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(255);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                beerPlus.setColorFilter(filter);
+                winePlus.setColorFilter(filter);
+                mixedPlus.setColorFilter(filter);
+                liquorPlus.setColorFilter(filter);
+                craftbeerPlus.setColorFilter(filter);
+                cocktailPlus.setColorFilter(filter);
+            }
+        }, 1*5*1000);
+        craftbeer.postDelayed(new Runnable() {
+            public void run() {
+                cocktail.setEnabled(true);
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(255);
+
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                beerPlus.setColorFilter(filter);
+                winePlus.setColorFilter(filter);
+                mixedPlus.setColorFilter(filter);
+                liquorPlus.setColorFilter(filter);
+                craftbeerPlus.setColorFilter(filter);
+                cocktailPlus.setColorFilter(filter);
             }
         }, 1*5*1000);
 
