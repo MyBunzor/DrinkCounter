@@ -17,9 +17,6 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -106,7 +103,7 @@ public class PlusActivity extends AppCompatActivity {
 
             // Get date in milliseconds  of first time app is launched
             Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DAY_OF_MONTH, -50);
+            cal.add(Calendar.DAY_OF_MONTH, -500);
             launchLong = cal.getTimeInMillis();
 
             prefs.edit().putBoolean("firstrun", false).commit();

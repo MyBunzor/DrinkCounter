@@ -8,31 +8,16 @@
     tools:context=".InputActivity">
 
     <Button
-        android:id="@+id/buttonTime"
-        android:layout_width="247dp"
-        android:layout_height="134dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/arsenal"
-        android:onClick="timeMethod"
-        android:text="Click to select a date and time!"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/beer"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:onClick="addDrink"
         android:text="+ beer"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/dateEdit" />
 
     <Button
         android:id="@+id/wine"
@@ -83,12 +68,12 @@
         android:layout_width="116dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/arsenal"
         android:text="Beer"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/dateEdit" />
 
     <TextView
         android:id="@+id/textWine"
@@ -141,18 +126,30 @@
         app:layout_constraintTop_toBottomOf="@+id/textLiquor"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="229dp"
-        android:layout_height="101dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/arsenal"
-        android:text="Click on the plus button next to the drink to add the drink!"
+    <EditText
+        android:id="@+id/dateEdit"
+        android:layout_width="243dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:onClick="timeMethod"
+        android:text="Date"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonTime" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="293dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/arsenal"
+        android:text="Fill in date and tame below:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

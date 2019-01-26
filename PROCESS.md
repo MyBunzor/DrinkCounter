@@ -117,4 +117,3 @@ The database is improved as well. Instead of an update statement with SQL, a Con
 The InputActivity has been altered: the user can now see what date and time he chose.
 
 The PlusActivity needs some changes as well. The add buttons for drinks there where quite small, so I've come up with a new design. This isn't final yet though.
-
