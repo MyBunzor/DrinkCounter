@@ -61,11 +61,11 @@ public class InputActivity extends AppCompatActivity implements DatePickerDialog
         day_x = dayOfMonth;
 
         if (month_x < 10 && day_x < 10) {
-            userDateTime = "0" + day_x + "-0" + month_x + "-" + year_x + "-00-00-00";
+            userDateTime = "0" + day_x + "-0" + month_x + "-" + year_x + "-01-37-37";
             dateEdit.setText("0" + day_x + "-0" + month_x + "-" + year_x);
         }
         else if(month_x > 10 && day_x < 10) {
-            userDateTime = "0" + day_x + "-" + month_x + "-" + year_x + "-00-00-00";
+            userDateTime = "0" + day_x + "-" + month_x + "-" + year_x + "-01-37-37";
             dateEdit.setText("0" + day_x + "-" + month_x + "-" + year_x);
         }
         else if(month_x < 10 && day_x > 10) {

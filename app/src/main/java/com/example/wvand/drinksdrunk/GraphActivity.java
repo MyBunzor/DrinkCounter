@@ -2,6 +2,7 @@ package com.example.wvand.drinksdrunk;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -28,43 +29,43 @@ public class GraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_graph);
 
         // Get intent and find out what data user clicked on
-        Intent getTimeperiod = getIntent();
-        String timePeriod = (String) getTimeperiod.getSerializableExtra("timePeriod");
+        Intent getTimePeriod = getIntent();
+        String timePeriod = (String) getTimePeriod.getSerializableExtra("timePeriod");
 
         // Use switch statement to determine what data should be shown
         switch(timePeriod) {
             case "session":
 
-                // Get intent with sessioninfo
-                Intent getsessionData = getIntent();
-                String startsession = (String) getsessionData.getSerializableExtra("sessionstart");
-                String endsession = (String) getsessionData.getSerializableExtra("sessionend");
-                Boolean check = (Boolean) getsessionData.getSerializableExtra("switch");
+                // Get intent with session info
+                Intent getSessionData = getIntent();
+                String startSession = (String) getSessionData.getSerializableExtra("sessionstart");
+                String endsession = (String) getSessionData.getSerializableExtra("sessionend");
+                Boolean check = (Boolean) getSessionData.getSerializableExtra("switch");
 
                 // Get the database to get to data
                 db = DrinkDatabase.getInstance(getApplicationContext());
 
                 // Use cursor and database to get amount of drinks in session, pass timestamps along
-                Cursor sessionCursor = db.selectSession(startsession, endsession, check);
+                Cursor sessionCursor = db.selectSession(startSession, endsession, check);
 
-                int sessioncount = sessionCursor.getCount();
-                System.out.println("COUNT:" + sessioncount);
+                int sessionCount = sessionCursor.getCount();
+                System.out.println("COUNT:" + sessionCount);
 
                 // Get different kind of drinks drunk
-                Cursor kindbeerCursor = db.selectsessionKind(startsession, endsession, check, beer);
-                Cursor kindwineCursor = db.selectsessionKind(startsession, endsession, check, wine);
-                Cursor kindmixedCursor = db.selectsessionKind(startsession, endsession, check, mixed);
-                Cursor kindliquorCursor = db.selectsessionKind(startsession, endsession, check, liquor);
-                Cursor kindcraftbeerCursor = db.selectsessionKind(startsession, endsession, check, craftbeer);
-                Cursor kindcocktailCursor = db.selectsessionKind(startsession, endsession, check, cocktail);
+                Cursor kindBeerCursor = db.selectsessionKind(startSession, endsession, check, beer);
+                Cursor kindWineCursor = db.selectsessionKind(startSession, endsession, check, wine);
+                Cursor kindMixedCursor = db.selectsessionKind(startSession, endsession, check, mixed);
+                Cursor kindLiquorCursor = db.selectsessionKind(startSession, endsession, check, liquor);
+                Cursor kindCraftBeerCursor = db.selectsessionKind(startSession, endsession, check, craftbeer);
+                Cursor kindCocktailCursor = db.selectsessionKind(startSession, endsession, check, cocktail);
 
                 // Get count from cursors
-                int beerCount = kindbeerCursor.getCount();
-                int wineCount = kindwineCursor.getCount();
-                int mixCount = kindmixedCursor.getCount();
-                int liquorCount = kindliquorCursor.getCount();
-                int craftCount = kindcraftbeerCursor.getCount();
-                int cocktailCount = kindcocktailCursor.getCount();
+                int beerCount = kindBeerCursor.getCount();
+                int wineCount = kindWineCursor.getCount();
+                int mixCount = kindMixedCursor.getCount();
+                int liquorCount = kindLiquorCursor.getCount();
+                int craftCount = kindCraftBeerCursor.getCount();
+                int cocktailCount = kindCocktailCursor.getCount();
 
                 System.out.println("COUNT: "+ beerCount + "_" + wineCount + "_" +  mixCount + "_" +
                         liquorCount + "_" + craftCount + cocktailCount);
@@ -74,12 +75,12 @@ public class GraphActivity extends AppCompatActivity {
                 List<DataEntry> data1 = new ArrayList<>();
 
                 // Put amount of drinks drunk per kind in list
+                data1.add(new ValueDataEntry("cocktail", cocktailCount));
                 data1.add(new ValueDataEntry("beer", beerCount));
                 data1.add(new ValueDataEntry("wine", wineCount));
                 data1.add(new ValueDataEntry("mixed", mixCount));
                 data1.add(new ValueDataEntry("liquor", liquorCount));
                 data1.add(new ValueDataEntry("craftbeer", craftCount));
-                data1.add(new ValueDataEntry("cocktail", cocktailCount));
 
                 // Fetch datalist to the column
                 column.data(data1);
@@ -93,9 +94,9 @@ public class GraphActivity extends AppCompatActivity {
                 yTitle.enabled(true);
                 yTitle.text("Session consumption");
 
-                // Set y-axis interval on 1 (input can't be a float)
+                // Set y-axis interval on 1 (input can't be a float), make background transparent
                 column.yScale().ticks().interval(1);
-                column.background().fill("#64B5F6");
+                column.background().fill("#B2EBF2");
 
                 break;
 
@@ -105,37 +106,32 @@ public class GraphActivity extends AppCompatActivity {
                 db = DrinkDatabase.getInstance(getApplicationContext());
 
                 // Use cursor and database to get amount of drinks past week
-                Cursor weekCursor = db.selectWeek();
-
-                int weekcount = weekCursor.getCount();
-                System.out.println("COUNT: "+ weekcount);
-
-                Cursor weekbeerCursor = db.selectkindWeek(beer);
-                Cursor weekwineCursor = db.selectkindWeek(wine);
-                Cursor weekmixedCursor = db.selectkindWeek(mixed);
-                Cursor weekliquorCursor = db.selectkindWeek(liquor);
-                Cursor weekcraftbeerCursor = db.selectkindWeek(craftbeer);
-                Cursor weekcocktailCursor = db.selectkindWeek(cocktail);
+                Cursor weekCocktailCursor = db.selectkindWeek(cocktail);
+                Cursor weekBeerCursor = db.selectkindWeek(beer);
+                Cursor weekWineCursor = db.selectkindWeek(wine);
+                Cursor weekMixedCursor = db.selectkindWeek(mixed);
+                Cursor weekLiquorCursor = db.selectkindWeek(liquor);
+                Cursor weekCraftBeerCursor = db.selectkindWeek(craftbeer);
 
                 // Get count from cursors
-                int beerweekCount = weekbeerCursor.getCount();
-                int wineweekCount = weekwineCursor.getCount();
-                int mixweekCount = weekmixedCursor.getCount();
-                int liquorweekCount = weekliquorCursor.getCount();
-                int craftweekCount = weekcraftbeerCursor.getCount();
-                int cocktailweekCount = weekcocktailCursor.getCount();
+                int beerWeekCount = weekBeerCursor.getCount();
+                int wineWeekCount = weekWineCursor.getCount();
+                int mixWeekCount = weekMixedCursor.getCount();
+                int liquorWeekCount = weekLiquorCursor.getCount();
+                int craftWeekCount = weekCraftBeerCursor.getCount();
+                int cocktailWeekCount = weekCocktailCursor.getCount();
 
                 // Create column chart and list to put data in
                 Cartesian columnWeek = AnyChart.column();
                 List<DataEntry> dataWeek = new ArrayList<>();
 
                 // Put amount of drinks drunk per kind in list
-                dataWeek.add(new ValueDataEntry("beer", beerweekCount));
-                dataWeek.add(new ValueDataEntry("wine", wineweekCount));
-                dataWeek.add(new ValueDataEntry("mixed", mixweekCount));
-                dataWeek.add(new ValueDataEntry("liquor", liquorweekCount));
-                dataWeek.add(new ValueDataEntry("craftbeer", craftweekCount));
-                dataWeek.add(new ValueDataEntry("cocktail", cocktailweekCount));
+                dataWeek.add(new ValueDataEntry("cocktail", cocktailWeekCount));
+                dataWeek.add(new ValueDataEntry("beer", beerWeekCount));
+                dataWeek.add(new ValueDataEntry("wine", wineWeekCount));
+                dataWeek.add(new ValueDataEntry("mixed", mixWeekCount));
+                dataWeek.add(new ValueDataEntry("liquor", liquorWeekCount));
+                dataWeek.add(new ValueDataEntry("craftbeer", craftWeekCount));
 
                 // Fetch datalist to the column
                 columnWeek.data(dataWeek);
@@ -149,8 +145,9 @@ public class GraphActivity extends AppCompatActivity {
                 weekTitle.enabled(true);
                 weekTitle.text("Weekly consumption");
 
-                // Set y-axis interval on 1 (input can't be a float)
+                // Set y-axis interval on 1 (input can't be a float), set background transparent
                 columnWeek.yScale().ticks().interval(1);
+                columnWeek.background().fill("#B2EBF2");
 
                 break;
 
@@ -160,38 +157,32 @@ public class GraphActivity extends AppCompatActivity {
                 db = DrinkDatabase.getInstance(getApplicationContext());
 
                 // Use cursor and database to get amount of drinks past month
-
-                Cursor monthCursor = db.selectMonth();
-
-                int monthcount = monthCursor.getCount();
-                System.out.println("MonthCOUNT: " + monthcount);
-
-                Cursor monthbeerCursor = db.selectkindMonth(beer);
-                Cursor monthwineCursor = db.selectkindMonth(wine);
-                Cursor monthmixedCursor =db.selectkindMonth(mixed);
-                Cursor monthliquorCursor =  db.selectkindMonth(liquor);
-                Cursor monthcraftCursor = db.selectkindMonth(craftbeer);
-                Cursor monthcocktailCursor = db.selectkindMonth(cocktail);
+                Cursor monthBeerCursor = db.selectkindMonth(beer);
+                Cursor monthWineCursor = db.selectkindMonth(wine);
+                Cursor monthMixedCursor =db.selectkindMonth(mixed);
+                Cursor monthLiquorCursor =  db.selectkindMonth(liquor);
+                Cursor monthCraftCursor = db.selectkindMonth(craftbeer);
+                Cursor monthCocktailCursor = db.selectkindMonth(cocktail);
 
                 // Get count from cursors
-                int beermonthCount = monthbeerCursor.getCount();
-                int winemonthCount = monthwineCursor.getCount();
-                int mixedmonthCount = monthmixedCursor.getCount();
-                int liquormonthCount = monthliquorCursor.getCount();
-                int craftmonthCount = monthcraftCursor.getCount();
-                int cocktailmonthCount = monthcocktailCursor.getCount();
+                int beerMonthCount = monthBeerCursor.getCount();
+                int wineMonthCount = monthWineCursor.getCount();
+                int mixedMonthCount = monthMixedCursor.getCount();
+                int liquorMonthCount = monthLiquorCursor.getCount();
+                int craftMonthCount = monthCraftCursor.getCount();
+                int cocktailMonthCount = monthCocktailCursor.getCount();
 
                 // Create column chart and list to put data in
                 Cartesian columnMonth = AnyChart.column();
                 List<DataEntry> dataMonth = new ArrayList<>();
 
                 // Put amount of drinks drunk per kind in list
-                dataMonth.add(new ValueDataEntry("beer", beermonthCount));
-                dataMonth.add(new ValueDataEntry("wine", winemonthCount));
-                dataMonth.add(new ValueDataEntry("mixed", mixedmonthCount));
-                dataMonth.add(new ValueDataEntry("liquor", liquormonthCount));
-                dataMonth.add(new ValueDataEntry("craftbeer", craftmonthCount));
-                dataMonth.add(new ValueDataEntry("cocktail", cocktailmonthCount));
+                dataMonth.add(new ValueDataEntry("cocktail", cocktailMonthCount));
+                dataMonth.add(new ValueDataEntry("beer", beerMonthCount));
+                dataMonth.add(new ValueDataEntry("wine", wineMonthCount));
+                dataMonth.add(new ValueDataEntry("mixed", mixedMonthCount));
+                dataMonth.add(new ValueDataEntry("liquor", liquorMonthCount));
+                dataMonth.add(new ValueDataEntry("craftbeer", craftMonthCount));
 
                 // Fetch datalist to the column
                 columnMonth.data(dataMonth);
@@ -205,8 +196,15 @@ public class GraphActivity extends AppCompatActivity {
                 monthTitle.enabled(true);
                 monthTitle.text("Monthly consumption");
 
-                // Set y-axis interval on 1 (input can't be a float)
-                columnMonth.yScale().ticks().interval(1);
+                Cursor monthCount = db.selectMonth();
+                int monthNumber = (int) Math.ceil(monthCount.getCount() / 4);
+                System.out.println("MONTHCOUNT: " + monthCount.getCount());
+
+                System.out.println("CURSORMONTH: "+ DatabaseUtils.dumpCursorToString(monthCount));
+
+                // Set y-axis interval on 1 (input can't be a float) and make background transparent
+                columnMonth.yScale().ticks().interval(monthNumber);
+                columnMonth.background().fill("#B2EBF2");
 
                 break;
 
@@ -215,38 +213,36 @@ public class GraphActivity extends AppCompatActivity {
                 // Get the database to get to data
                 db = DrinkDatabase.getInstance(getApplicationContext());
 
+                Cursor yearCount = db.selectYear();
+                System.out.println("YEARCOUNT: " + yearCount.getCount());
+
                 // Use cursor and database to get amount of drinks past month
-                Cursor yearCursor = db.selectYear();
-
-                int yearcount = yearCursor.getCount();
-                System.out.println("YearCOUNT: " + yearcount);
-
-                Cursor yearbeerCursor = db.selectkindYear(beer);
-                Cursor yearwineCursor = db.selectkindYear(wine);
-                Cursor yearmixedCursor = db.selectkindYear(mixed);
-                Cursor yearliquorCursor = db.selectkindYear(liquor);
-                Cursor yearcraftCursor = db.selectkindYear(craftbeer);
-                Cursor yearcocktailCursor = db.selectkindYear(cocktail);
+                Cursor yearBeerCursor = db.selectkindYear(beer);
+                Cursor yearWineCursor = db.selectkindYear(wine);
+                Cursor yearMixedCursor = db.selectkindYear(mixed);
+                Cursor yearLiquorCursor = db.selectkindYear(liquor);
+                Cursor yearCraftCursor = db.selectkindYear(craftbeer);
+                Cursor yearCocktailCursor = db.selectkindYear(cocktail);
 
                 // Get count from cursors
-                int beeryearCount = yearbeerCursor.getCount();
-                int wineyearCount = yearwineCursor.getCount();
-                int mixedyearCount = yearmixedCursor.getCount();
-                int liquoryearCount = yearliquorCursor.getCount();
-                int craftyearCount = yearcraftCursor.getCount();
-                int cocktailyearCount = yearcocktailCursor.getCount();
+                int beerYearCount = yearBeerCursor.getCount();
+                int wineYearCount = yearWineCursor.getCount();
+                int mixedYearCount = yearMixedCursor.getCount();
+                int liquorYearCount = yearLiquorCursor.getCount();
+                int craftYearCount = yearCraftCursor.getCount();
+                int cocktailYearCount = yearCocktailCursor.getCount();
 
                 // Create column chart and list to put data in
                 Cartesian columnYear = AnyChart.column();
                 List<DataEntry> dataYear = new ArrayList<>();
 
                 // Put amount of drinks drunk per kind in list
-                dataYear.add(new ValueDataEntry("beer", beeryearCount));
-                dataYear.add(new ValueDataEntry("wine", wineyearCount));
-                dataYear.add(new ValueDataEntry("mixed", mixedyearCount));
-                dataYear.add(new ValueDataEntry("liquor", liquoryearCount));
-                dataYear.add(new ValueDataEntry("craftbeer", craftyearCount));
-                dataYear.add(new ValueDataEntry("Cocktail", cocktailyearCount));
+                dataYear.add(new ValueDataEntry("Cocktail", cocktailYearCount));
+                dataYear.add(new ValueDataEntry("beer", beerYearCount));
+                dataYear.add(new ValueDataEntry("wine", wineYearCount));
+                dataYear.add(new ValueDataEntry("mixed", mixedYearCount));
+                dataYear.add(new ValueDataEntry("liquor", liquorYearCount));
+                dataYear.add(new ValueDataEntry("craftbeer", craftYearCount));
 
                 // Fetch datalist to the column
                 columnYear.data(dataYear);
@@ -260,9 +256,9 @@ public class GraphActivity extends AppCompatActivity {
                 yearTitle.enabled(true);
                 yearTitle.text("Yearly consumption");
 
-                // Set y-axis interval on 1 (input can't be a float)
+                // Set y-axis interval on 1 (input can't be a float), background transparent
                 columnYear.yScale().ticks().interval(2);
-
+                columnYear.background().fill("#B2EBF2");
                 break;
         }
     }

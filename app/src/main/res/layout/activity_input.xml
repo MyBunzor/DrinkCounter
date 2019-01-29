@@ -4,25 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#64B5F6"
     tools:context=".InputActivity">
 
-    <ImageView
-        android:id="@+id/beer4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        android:contentDescription="beer"
-        android:onClick="addDrink"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/beer" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#64B5F6"
+        android:background="#B2EBF2"
         tools:context=".PlusActivity"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
@@ -32,41 +20,65 @@
             android:id="@+id/mixedplus"
             android:layout_width="37dp"
             android:layout_height="55dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="64dp"
-            app:layout_constraintStart_toStartOf="@+id/textView10"
-            app:layout_constraintTop_toTopOf="@+id/mixed"
-            app:srcCompat="@drawable/plus" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.977"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.931"
+            app:srcCompat="@drawable/plustest" />
 
         <ImageView
             android:id="@+id/liquorplus"
             android:layout_width="37dp"
             android:layout_height="55dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="64dp"
-            app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toTopOf="@+id/liquor"
-            app:srcCompat="@drawable/plus" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.597"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.931"
+            app:srcCompat="@drawable/plustest" />
 
         <ImageView
             android:id="@+id/craftbeerplus"
             android:layout_width="37dp"
             android:layout_height="55dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="64dp"
-            app:layout_constraintStart_toStartOf="@+id/textView7"
-            app:layout_constraintTop_toTopOf="@+id/craftbeer"
-            app:srcCompat="@drawable/plus" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.237"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.931"
+            app:srcCompat="@drawable/plustest" />
 
         <ImageView
             android:id="@+id/cocktailplus"
             android:layout_width="37dp"
             android:layout_height="55dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="64dp"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/cocktail"
-            app:srcCompat="@drawable/plus" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.966"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.684"
+            app:srcCompat="@drawable/plustest" />
 
         <TextView
             android:id="@+id/textView7"
@@ -74,59 +86,89 @@
             android:layout_height="29dp"
             android:layout_marginStart="36dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/arsenal"
             android:text="Craftbeer"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/craftbeer" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.953" />
 
         <ImageView
             android:id="@+id/wine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginBottom="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="wine"
             android:onClick="addDrink"
-            app:layout_constraintBottom_toTopOf="@+id/liquor"
-            app:layout_constraintStart_toEndOf="@+id/beer"
-            app:srcCompat="@drawable/wine" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.651"
+            app:srcCompat="@drawable/wine2" />
 
         <ImageView
             android:id="@+id/beer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginBottom="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="beer"
             android:onClick="addDrink"
-            app:layout_constraintBottom_toTopOf="@+id/craftbeer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/beer" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.65"
+            app:srcCompat="@drawable/beer3" />
 
         <ImageView
             android:id="@+id/cocktail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="cocktail"
             android:onClick="addDrink"
-            app:layout_constraintBottom_toTopOf="@+id/mixed"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/cocktail" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.65"
+            app:srcCompat="@drawable/cocktail2" />
 
         <ImageView
             android:id="@+id/craftbeer"
             android:layout_width="95dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginBottom="92dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="craftsbeer"
             android:onClick="addDrink"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/craftsbeer" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.89"
+            app:srcCompat="@drawable/craftbeer2" />
 
         <TextView
             android:id="@+id/textView2"
@@ -134,106 +176,157 @@
             android:layout_height="29dp"
             android:layout_marginStart="48dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/arsenal"
             android:text="Beer"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/beer" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.725" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="69dp"
             android:layout_height="28dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/arsenal"
             android:text="Wine"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/textView4"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/wine" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.546"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.726" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="69dp"
             android:layout_height="28dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/arsenal"
             android:text="Cocktail"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cocktail" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.726" />
 
         <ImageView
             android:id="@+id/liquor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginBottom="92dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="liquor"
             android:onClick="addDrink"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/craftbeer"
-            app:srcCompat="@drawable/liquor" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.89"
+            app:srcCompat="@drawable/liquor2" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="81dp"
             android:layout_height="29dp"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/arsenal"
             android:text="Liquor"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/textView7"
-            app:layout_constraintTop_toBottomOf="@+id/liquor" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.541"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.953" />
 
         <ImageView
             android:id="@+id/mixed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="92dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="mixed"
             android:onClick="addDrink"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/mixed" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.89"
+            app:srcCompat="@drawable/mixed2" />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="81dp"
             android:layout_height="29dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/arsenal"
             android:text="Mixed"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mixed" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.953" />
 
         <ImageView
             android:id="@+id/beerplus"
             android:layout_width="37dp"
             android:layout_height="55dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="64dp"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/beer"
-            app:srcCompat="@drawable/plus" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.237"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.689"
+            app:srcCompat="@drawable/plustest" />
 
         <ImageView
             android:id="@+id/wineplus"
             android:layout_width="37dp"
             android:layout_height="55dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="64dp"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toTopOf="@+id/wine"
-            app:srcCompat="@drawable/plus" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.586"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.684"
+            app:srcCompat="@drawable/plustest" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -241,15 +334,21 @@
         android:id="@+id/dateEdit"
         android:layout_width="243dp"
         android:layout_height="65dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:onClick="timeMethod"
         android:text="Date"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.135" />
 
     <TextView
         android:id="@+id/textView6"
@@ -257,10 +356,16 @@
         android:layout_height="57dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/arsenal"
-        android:text="Fill in date and tame below:"
+        android:text="Fill in date and time below:"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.011" />
 
 </android.support.constraint.ConstraintLayout>

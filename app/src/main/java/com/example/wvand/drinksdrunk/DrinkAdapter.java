@@ -21,8 +21,8 @@ public class DrinkAdapter extends ResourceCursorAdapter {
         TextView time = view.findViewById(R.id.textTime);
 
         // Retrieve data: kind and timestamp, set text-views
-        String beerkind = cursor.getString(cursor.getColumnIndex("kind"));
-        kind.setText(beerkind);
+        String beerKind = cursor.getString(cursor.getColumnIndex("kind"));
+        kind.setText(beerKind);
         String timestamp = cursor.getString(cursor.getColumnIndex("timestamp"));
         time.setText(timestamp);
     }

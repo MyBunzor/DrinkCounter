@@ -5,19 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
-
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import static android.database.DatabaseUtils.dumpCursorToString;
-import static java.time.Instant.MAX;
 
 public class DrinkDatabase extends SQLiteOpenHelper {
 
@@ -54,39 +44,20 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
         // Database with trophies, instantiate them immediately
         db.execSQL("create table trophies (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, " +
-                "description TEXT, timestamp DATETIME, drawableId INTEGER, achieved INTEGER)");
+                "timestamp DATETIME, achieved INTEGER)");
 
         String trophySessionName = "Sober session";
-        String trophySessionDescription = "You've had a session without drinking alcohol!";
         int trophySessionInt = 0;
         String trophyWeekName = "Sober week";
-        String trophyWeekDescription = "You've had a week without drinking alcohol!";
         int trophyWeekInt = 0;
         String trophyMonthName = "Sober month";
-        String trophyMonthDescription = "You've had a month without drinking alcohol!";
         int trophyMonthInt = 0;
         String trophyYearName = "Sober year";
-        String trophyYearDescription = "Wow! You've made it a full year without drinking alcohol!";
         int trophyYearInt = 0;
         String trophyOneSessionName = "Just one";
-        String trophyOneSessionDescription = "You've had a session with just one alcoholic drink!";
         int trophyOneSessionInt = 0;
         String threeDaysName = "Three days";
-        String threeDaysDescription = "You've gone three days without drinking alcohol!";
         int threeDaysInt = 0;
-
-        int drawableSessionID = context.getResources().getIdentifier("sessionprize",
-                "drawable", context.getPackageName());
-        int drawableWeekID = context.getResources().getIdentifier("weekprize",
-                "drawable", context.getPackageName());
-        int drawableMonthID = context.getResources().getIdentifier("monthprize",
-                "drawable", context.getPackageName());
-        int drawableYearID = context.getResources().getIdentifier("yearprize",
-                "drawable", context.getPackageName());
-        int drawableOneID = context.getResources().getIdentifier("onepersession",
-                "drawable", context.getPackageName());
-        int drawableThreeID = context.getResources().getIdentifier("threedaysprice",
-                "drawable", context.getPackageName());
 
         // Use content values to put trophy data in the database
         ContentValues contentValuesSession = new ContentValues();
@@ -97,44 +68,32 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         ContentValues contentValuesThree = new ContentValues();
 
         contentValuesSession.put("name", trophySessionName);
-        contentValuesSession.put("description", trophySessionDescription);
         contentValuesSession.put("achieved", trophySessionInt);
-        contentValuesSession.put("drawableId", drawableSessionID);
 
         db.insert("trophies", null, contentValuesSession);
 
         contentValuesWeek.put("name", trophyWeekName);
-        contentValuesWeek.put("description", trophyWeekDescription);
         contentValuesWeek.put("achieved", trophyWeekInt);
-        contentValuesWeek.put("drawableId", drawableWeekID);
 
         db.insert("trophies", null, contentValuesWeek);
 
         contentValuesMonth.put("name", trophyMonthName);
-        contentValuesMonth.put("description", trophyMonthDescription);
         contentValuesMonth.put("achieved", trophyMonthInt);
-        contentValuesMonth.put("drawableId", drawableMonthID);
 
         db.insert("trophies", null, contentValuesMonth);
 
         contentValuesYear.put("name", trophyYearName);
-        contentValuesYear.put("description", trophyYearDescription);
         contentValuesYear.put("achieved", trophyYearInt);
-        contentValuesYear.put("drawableId", drawableYearID);
 
         db.insert("trophies", null, contentValuesYear);
 
         contentValuesOne.put("name", trophyOneSessionName);
-        contentValuesOne.put("description", trophyOneSessionDescription);
         contentValuesOne.put("achieved", trophyOneSessionInt);
-        contentValuesOne.put("drawableId", drawableOneID);
 
         db.insertOrThrow("trophies", null, contentValuesOne);
 
         contentValuesThree.put("name", threeDaysName);
-        contentValuesThree.put("description", threeDaysDescription);
         contentValuesThree.put("achieved", threeDaysInt);
-        contentValuesThree.put("drawableId", drawableThreeID);
 
         db.insert("trophies", null, contentValuesThree);
     }
@@ -169,10 +128,7 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         // Open up connection with the database
         SQLiteDatabase writabledb = instance.getWritableDatabase();
 
-//        Cursor cursor = writabledb.rawQuery("UPDATE trophies SET achieved = 1 WHERE name == '"+trophyName+"'", null);
-//
-//        cursor.close();
-
+        // Use ContentValues to alter the database
         ContentValues contentValues = new ContentValues();
         contentValues.put("achieved", 1);
 
@@ -180,16 +136,17 @@ public class DrinkDatabase extends SQLiteOpenHelper {
     }
 
     // Method that sets Just One trophy back
-    public void justoneUndone(String JustOne){
+    public void justoneUndone(){
 
         // Open up connection with the database
         SQLiteDatabase writabledb = instance.getWritableDatabase();
 
-        Cursor cursor = writabledb.rawQuery("UPDATE trophies SET achieved = 0 WHERE name == '"+JustOne+"'", null);
+        Cursor cursor = writabledb.rawQuery("UPDATE trophies SET achieved = 0 WHERE name == 'Just one'", null);
 
         cursor.close();
     }
 
+    // Method that checks if trophy is already achieved
     public Cursor checkTrophies(String trophyName) {
 
         // Open up connection with the database
@@ -297,6 +254,58 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         return weekCursor;
     }
 
+    public Cursor selectFourHours() {
+
+        // Open up connection with the database
+        SQLiteDatabase weekdb = instance.getWritableDatabase();
+
+        // Get today's date..
+        Calendar cal = Calendar.getInstance();
+        long actual = cal.getTimeInMillis();
+        Date datenow = new Date(actual);
+
+        cal.add(Calendar.HOUR_OF_DAY, -4);
+        long hoursFour = cal.getTimeInMillis();
+        Date fourHours = new Date(hoursFour);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String dateNow = simpleDateFormat.format(datenow);
+        String quatroHours = simpleDateFormat.format(fourHours);
+
+        // Get cursor to select week period
+        Cursor cursor = weekdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN " +
+                "'" + quatroHours + "' AND '" + dateNow + "'", null);
+
+        return cursor;
+    }
+
+    public Cursor selectThreeDays() {
+
+        // Open up connection with the database
+        SQLiteDatabase weekdb = instance.getWritableDatabase();
+
+        // Get today's date..
+        Calendar cal = Calendar.getInstance();
+        long actual = cal.getTimeInMillis();
+        Date datenow = new Date(actual);
+
+        // ..and date from 3 days ago
+        cal.add(Calendar.DAY_OF_MONTH, -3);
+        long three = cal.getTimeInMillis();
+        Date daysThree = new Date(three);
+
+        // Format to SimpleDateFormat to work with SQLite
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String now = simpleDateFormat.format(datenow);
+        String threeDays = simpleDateFormat.format(daysThree);
+
+        // Get cursor to select week period
+        Cursor weekCursor = weekdb.rawQuery("SELECT * FROM drinks WHERE timestamp BETWEEN " +
+                "'" + threeDays + "' AND '" + now + "'", null);
+
+        return weekCursor;
+    }
+
     // Method that selects drinks of past 6 days
     public Cursor selectSixDays() {
 
@@ -331,8 +340,30 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         // Open up connection with the database
         SQLiteDatabase monthdb = instance.getWritableDatabase();
 
+        // Get first day of this month
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -1);
+        cal.add(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH - 1);
+        cal.add(Calendar.DAY_OF_MONTH, -1);
+        long firstDayThisMonth = cal.getTimeInMillis();
+        Date dayFirstThisMonth = new Date(firstDayThisMonth);
+
+        // Get first day of last month
+        cal.add(Calendar.MONTH, -1);
+        cal.add(Calendar.DAY_OF_MONTH, +1);
+        long firstDayLastMonth = cal.getTimeInMillis();
+        Date dayFirstLastMonth = new Date(firstDayLastMonth);
+
+        // Adjust to right format for SQL
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String endMonth = simpleDateFormat.format(dayFirstThisMonth);
+        String startMonth = simpleDateFormat.format(dayFirstLastMonth);
+
+        System.out.println("DATE3: " + startMonth + "_" + endMonth);
+
         Cursor monthCursor = monthdb.rawQuery("SELECT * FROM drinks WHERE timestamp >= " +
-                "date('now', 'start of month', '-1 month')", null);
+                "date('start of month', '-1 month') AND timestamp < " +
+                "date('start of month')", null);
 
         return monthCursor;
     }
@@ -396,6 +427,8 @@ public class DrinkDatabase extends SQLiteOpenHelper {
         String now = simpleDateFormat.format(datenow);
         String lastWeek = simpleDateFormat.format(lastweek);
 
+        System.out.println("DATEWEEK: "+ lastweek + "_" + now);
+
         // Get cursor to select week period and kind of drink
         Cursor weekCursor = weekdb.rawQuery("SELECT * FROM drinks WHERE kind == '"+kind+"' " +
                 "AND timestamp BETWEEN '" + lastWeek + "' AND '" + now + "'", null);
@@ -408,6 +441,25 @@ public class DrinkDatabase extends SQLiteOpenHelper {
 
         // Open up connection with the database
         SQLiteDatabase monthdb = instance.getWritableDatabase();
+
+        // Get first day of this month
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -1);
+        cal.add(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH - 1);
+        long firstDayThisMonth = cal.getTimeInMillis();
+        Date dayFirstThisMonth = new Date(firstDayThisMonth);
+
+        // Get first day of last month
+        cal.add(Calendar.MONTH, -1);
+        long firstDayLastMonth = cal.getTimeInMillis();
+        Date dayFirstLastMonth = new Date(firstDayLastMonth);
+
+        // Adjust to right format
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String endMonth = simpleDateFormat.format(dayFirstThisMonth);
+        String startMonth = simpleDateFormat.format(dayFirstLastMonth);
+
+        System.out.println("DATE2: " + startMonth + "_" + endMonth);
 
         Cursor monthCursor = monthdb.rawQuery("SELECT * FROM drinks WHERE kind == '"+kind+"' "+
                 " AND timestamp >= date('now', 'start of month', '-1 month')", null);

@@ -14,7 +14,7 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
         // Get the listview to place the adapter on
-        ListView drinkslist = findViewById(R.id.ListView);
+        ListView drinksList = findViewById(R.id.ListView);
 
         // Retrieve database
         DrinkDatabase db = DrinkDatabase.getInstance(getApplicationContext());
@@ -24,6 +24,6 @@ public class HistoryActivity extends AppCompatActivity {
 
         // Set adapter to display data in the list-view
         DrinkAdapter adapter = new DrinkAdapter(this, R.layout.drink_row, cursor);
-        drinkslist.setAdapter(adapter);
+        drinksList.setAdapter(adapter);
     }
 }

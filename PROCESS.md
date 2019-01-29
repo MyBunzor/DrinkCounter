@@ -117,3 +117,15 @@ The database is improved as well. Instead of an update statement with SQL, a Con
 The InputActivity has been altered: the user can now see what date and time he chose.
 
 The PlusActivity needs some changes as well. The add buttons for drinks there where quite small, so I've come up with a new design. This isn't final yet though.
+
+# day 16
+A new layout has finally been implemented. Different colors are added, as wel as other buttons. Here's how it looks now:
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20NewPlusActivity.png" width="20%" height="20%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20NewTimeActivity.png" width="20%" height="20%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20NewInputActivity.png" width="20%" height="20%"/>
+
+The PlusActivity was to crowded with different buttons, so the user has to click the Bar Graph image to get to the data page. Here, the user can choose to view data, history or their trophies.
+
+
+
+
+

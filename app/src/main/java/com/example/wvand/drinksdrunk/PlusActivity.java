@@ -16,7 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -25,7 +24,7 @@ import static com.example.wvand.drinksdrunk.AppNotification.CHANNEL_1_ID;
 public class PlusActivity extends AppCompatActivity {
 
     DrinkDatabase db;
-    String StoredStart, StoredEnd;
+    String StoredStart, StoredEnd = null;
     Boolean check = false;
     SharedPreferences prefs = null;
     public static long launchLong;
@@ -43,6 +42,24 @@ public class PlusActivity extends AppCompatActivity {
 
         // Retrieve database
         db = DrinkDatabase.getInstance(getApplicationContext());
+
+        // Check how many drinks were drunk past 4 hours: warn user if needed
+        Cursor hoursAgo = db.selectFourHours();
+
+        System.out.println("HOURS: " + hoursAgo.getCount());
+        if (hoursAgo.getCount() > 4) {
+
+            // Notify drinks drunk are over four
+            Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                    .setSmallIcon(R.drawable.notificationglass)
+                    .setContentTitle("Careful!")
+                    .setContentText("You've had more than four drinks now. Soda?")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                    .build();
+
+            notificationManager.notify(1, notification);
+        }
 
         // Get switch button, so a session can be made; place listener on it
         Switch switchSession = findViewById(R.id.switchSession);
@@ -62,6 +79,7 @@ public class PlusActivity extends AppCompatActivity {
 
                     // Use shared preferences' editor to keep time window for session
                     editor.putString("sessionstart", sessionstart);
+                    editor.putBoolean("check", check);
                     editor.apply();
 
                     // Let user know the session started
@@ -91,6 +109,7 @@ public class PlusActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     // Method that captures the date of first launch: useful for trophies
@@ -102,7 +121,6 @@ public class PlusActivity extends AppCompatActivity {
 
             // Get date in milliseconds  of first time app is launched
             Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DAY_OF_MONTH, -500);
             launchLong = cal.getTimeInMillis();
 
             prefs.edit().putBoolean("firstrun", false).commit();
@@ -114,24 +132,20 @@ public class PlusActivity extends AppCompatActivity {
         // Retrieve launch date out of stored preferences
         launchLong = prefs.getLong("launchLong", launchLong);
 
-        System.out.println("Long:" + launchLong);
 
         // Get time right now
         Calendar cal = Calendar.getInstance();
         long actual = cal.getTimeInMillis();
+        System.out.println("Long:" + launchLong);
 
-        // Get time of six days ago
-        cal.add(Calendar.DAY_OF_MONTH, -6);
-        long sixDays = cal.getTimeInMillis();
-
-        // If six days have passed, check if week trophy is almost achieved
         long sixdaysPeriod = 1000 * 60 * 60 * 24 * 6;
 
-        // Six days since launch have passed
+        // Six days since launch have passed, check if trophy isn't already achieved
         if (actual - launchLong > sixdaysPeriod) {
             Cursor cursor = db.selectSixDays();
+            Cursor weekTrophy = db.checkTrophies("Sober week");
 
-            if (cursor.getCount() == 0) {
+            if (cursor.getCount() == 0 && weekTrophy.getCount() == 0) {
 
                 // Notify user that week trophy is only one day away
                 Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
@@ -159,30 +173,15 @@ public class PlusActivity extends AppCompatActivity {
         SharedPreferences endTime = getSharedPreferences("time", MODE_PRIVATE);
         StoredEnd = endTime.getString("sessionend", "0");
 
+        // Retrieve the check boolean
+        SharedPreferences checkPref = getSharedPreferences("time", MODE_PRIVATE);
+        check = checkPref.getBoolean("check", false);
+
         // Put time variables in intent
         chooseTime.putExtra("sessionstart", StoredStart);
         chooseTime.putExtra("sessionend", StoredEnd);
         chooseTime.putExtra("switch", check);
         startActivity(chooseTime);
-    }
-
-    // Method that's connected to the trophies-button
-    public void toTrophies(View view) {
-
-        // Retrieve start of session, with help of editor under key 'time'
-        SharedPreferences startTime = getSharedPreferences("time", MODE_PRIVATE);
-        StoredStart = startTime.getString("sessionstart", "0");
-
-        // Retrieve end of session, with help of editor under key 'time'
-        SharedPreferences endTime = getSharedPreferences("time", MODE_PRIVATE);
-        StoredEnd = endTime.getString("sessionend", "0");
-
-        // Intent to activity with trophies
-        Intent Trophy = new Intent(PlusActivity.this, TrophyActivity.class);
-        Trophy.putExtra("sessionstart", StoredStart);
-        Trophy.putExtra("sessionend", StoredEnd);
-        Trophy.putExtra("switch", check);
-        startActivity(Trophy);
     }
 
     // Method that's connected to the plus-buttons and adds a drink to the database
@@ -211,19 +210,14 @@ public class PlusActivity extends AppCompatActivity {
         db.insert(drink);
 
         // Find views to disable them after user added drink
-        final ImageView beer = findViewById(R.id.beer);
-        final ImageView wine = findViewById(R.id.wine);
-        final ImageView mixed = findViewById(R.id.mixed);
-        final ImageView liquor = findViewById(R.id.liquor);
-        final ImageView craftbeer = findViewById(R.id.craftbeer);
-        final ImageView cocktail = findViewById(R.id.cocktail);
+        final ImageView beer = findViewById(R.id.beer), wine = findViewById(R.id.wine), mixed =
+                findViewById(R.id.mixed), liquor = findViewById(R.id.liquor), craftbeer =
+                findViewById(R.id.craftbeer), cocktail = findViewById(R.id.cocktail);
 
-        final ImageView beerPlus = findViewById(R.id.beerplus);
-        final ImageView winePlus = findViewById(R.id.wineplus);
-        final ImageView mixedPlus = findViewById(R.id.mixedplus);
-        final ImageView liquorPlus = findViewById(R.id.liquorplus);
-        final ImageView craftbeerPlus = findViewById(R.id.craftbeerplus);
-        final ImageView cocktailPlus = findViewById(R.id.cocktailplus);
+        final ImageView beerPlus = findViewById(R.id.beerplus), winePlus =
+                findViewById(R.id.wineplus), mixedPlus = findViewById(R.id.mixedplus), liquorPlus =
+                findViewById(R.id.liquorplus), craftbeerPlus = findViewById(R.id.craftbeerplus),
+                cocktailPlus = findViewById(R.id.cocktailplus);
 
         // When user inputted a drink, disable views for 5 sec
         beer.setEnabled(false);
@@ -362,13 +356,6 @@ public class PlusActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
-    }
-
-    // Method that directs user to history activity
-    public void toHistory(View view) {
-
-        Intent seeHistory = new Intent(PlusActivity.this, HistoryActivity.class);
-        startActivity(seeHistory);
     }
 
     // Method that directs user to activity where manual input can be given

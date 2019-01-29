@@ -9,7 +9,8 @@ import android.view.View;
 public class TimeActivity extends AppCompatActivity {
 
     // Initialise variable to ensure right data is shown in GraphActivity
-    String timePeriod;
+    String timePeriod, StoredStart, StoredEnd;
+    Boolean check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,8 @@ public class TimeActivity extends AppCompatActivity {
         String sessionend = (String) getsessionData.getSerializableExtra("sessionend");
         Boolean check = (Boolean) getsessionData.getSerializableExtra("switch");
 
+        System.out.println("What's the check: " + check);
+
         // Start intent and pass given data above with it
         Intent session = new Intent(TimeActivity.this, GraphActivity.class);
         session.putExtra("sessionstart", sessionstart);
@@ -35,6 +38,13 @@ public class TimeActivity extends AppCompatActivity {
         session.putExtra("switch", check);
         session.putExtra("timePeriod", timePeriod);
         startActivity(session);
+    }
+
+    // Method that directs user to history activity
+    public void toHistory(View view) {
+
+        Intent seeHistory = new Intent(TimeActivity.this, HistoryActivity.class);
+        startActivity(seeHistory);
     }
 
     // Method that selects last week from table
@@ -46,6 +56,25 @@ public class TimeActivity extends AppCompatActivity {
         Intent week = new Intent(TimeActivity.this, GraphActivity.class);
         week.putExtra("timePeriod", timePeriod);
         startActivity(week);
+    }
+
+    // Method that's connected to the trophies-button
+    public void toTrophies(View view) {
+
+        // Retrieve start of session, with help of editor under key 'time'
+        SharedPreferences startTime = getSharedPreferences("time", MODE_PRIVATE);
+        StoredStart = startTime.getString("sessionstart", "0");
+
+        // Retrieve end of session, with help of editor under key 'time'
+        SharedPreferences endTime = getSharedPreferences("time", MODE_PRIVATE);
+        StoredEnd = endTime.getString("sessionend", "0");
+
+        // Intent to activity with trophies
+        Intent Trophy = new Intent(TimeActivity.this, TrophyActivity.class);
+        Trophy.putExtra("sessionstart", StoredStart);
+        Trophy.putExtra("sessionend", StoredEnd);
+        Trophy.putExtra("switch", check);
+        startActivity(Trophy);
     }
 
     // Method that selects last month from table
