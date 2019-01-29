@@ -125,6 +125,11 @@ A new layout has finally been implemented. Different colors are added, as wel as
 
 The PlusActivity was to crowded with different buttons, so the user has to click the Bar Graph image to get to the data page. Here, the user can choose to view data, history or their trophies.
 
+# day 17
+Today, I started cleaning up the code: adding or deleting comments where needed, improving inefficient parts and altering variable names for more clarity. I also made sure that the date in the input activity is set default to the current date, and the keyboard doesn't pop up after the date is set.
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20InputActivityDateDefault.png" width="20%" height="20%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20NewTimeActivity.png" width="20%" height="20%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20NewInputActivity.png" width="20%" height="20%"/>
+
 
 
 

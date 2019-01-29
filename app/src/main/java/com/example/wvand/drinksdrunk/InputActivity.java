@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethod;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+// Source: https://www.youtube.com/watch?v=T3sb7VUpkeE
 public class InputActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
         TimePickerDialog.OnTimeSetListener {
 
@@ -36,9 +39,35 @@ public class InputActivity extends AppCompatActivity implements DatePickerDialog
 
         // Use edit texts to let user know what time and date where chosen
         dateEdit = findViewById(R.id.dateEdit);
+
+        // Set edit text default to current time, with right format
+        Calendar cal = Calendar.getInstance();
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        month = month + 1;
+
+        if (month < 10 && day < 10) {
+            dateEdit.setText("0" + day + "-0" + month + "-" + year);
+        }
+        else if(month > 10 && day < 10) {
+            dateEdit.setText("0" + day + "-" + month + "-" + year);
+        }
+        else if(month < 10 && day > 10) {
+            dateEdit.setText(day + "-0" + month + "-" + year);
+        }
     }
 
-    // Method that fires a datepicker
+    // Disable the keyboard, source: https://www.youtube.com/watch?v=CW5Xekqfx3I
+    public void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    // Method that's connected to button and fires the date picker
     public void timeMethod(View view) {
 
         Calendar cal = Calendar.getInstance();
@@ -52,7 +81,6 @@ public class InputActivity extends AppCompatActivity implements DatePickerDialog
         datePickerDialog.show();
     }
 
-    // Method that fires a timepicker
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
@@ -60,18 +88,20 @@ public class InputActivity extends AppCompatActivity implements DatePickerDialog
         month_x = month + 1;
         day_x = dayOfMonth;
 
+        // Ensuring the right format for the database
         if (month_x < 10 && day_x < 10) {
-            userDateTime = "0" + day_x + "-0" + month_x + "-" + year_x + "-01-37-37";
+            userDateTime = "0" + day_x + "-0" + month_x + "-" + year_x + "-13-37-37";
             dateEdit.setText("0" + day_x + "-0" + month_x + "-" + year_x);
         }
         else if(month_x > 10 && day_x < 10) {
-            userDateTime = "0" + day_x + "-" + month_x + "-" + year_x + "-01-37-37";
+            userDateTime = "0" + day_x + "-" + month_x + "-" + year_x + "-13-37-37";
             dateEdit.setText("0" + day_x + "-" + month_x + "-" + year_x);
         }
         else if(month_x < 10 && day_x > 10) {
-            userDateTime = day_x + "-0" + month_x + "-" + year_x + "-00-00-00";
+            userDateTime = day_x + "-0" + month_x + "-" + year_x + "-13-37-37";
             dateEdit.setText(day_x + "-0" + month_x + "-" + year_x);
         }
+        closeKeyboard();
     }
 
     @Override
