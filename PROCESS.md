@@ -137,7 +137,7 @@ The last day was used to make some final improvements on the code, as well as ch
 
 I also realised I hadn't made landscape modes for the PlusActivity and the InputActivity yet. Now I have:
 
-<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20InputLandscape.png" width="20%" height="20%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20PlusLandscape.png" width="20%" height="20%"/>
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20InputLandscape.png" width="40%" height="40%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20PlusLandscape.png" width="40%" height="40%"/>
 
 With these final adjustments the programming part of this project is finished.
 
