@@ -1,26 +1,25 @@
 # Styleguide
 
 ## Naming conventions
-- Codeer variabelen met de camelCase. (3)
-- Begin namen van klassen met een hoofdletter. (1)
+- Name variables with CamelCase. (3)
+- Start names of classes with a capital letter. (1)
 
 ## Documentation
-- Plaats commentaar boven de betreffende code: laat boven de comment een witregel vrij.
-- Ga uit van een basaal begrip van Java bij de lezer: laat onnodig commentaar weg. (1)
+- Write comment lines above parts of code that concern the comment: leave a white space open above the comment.
+- No need for unnecessary comments: assume the reader has a basic understanding of Java. (1)
 
 ## Format
-- Plaats de curly braces meteen na de statement:
+- Place curly braces directly after a statement, as illustrated below:
      statement {
          code
 	 } (3)
-- Zorg dat methods niet langer zijn dan 50 regels: schrijf waar nodig sub-methods. (1)
-- De else-statement staat zo dicht mogelijk bij de if-statement. (1)
-- Initieer een lokale variabele zo dicht mogelijk bij waar je deze gebruikt. (1)
-- Plaats bij het initialiseren van meerdere variabelen van dezelfde modelklasse de variabelen naast elkaar in plaats van herhalen modelklasse op iedere regel. (1)
-- String username, title, name;
+- Lines have a maximum length of 100. (2)
+- Classes have a standard order in which attributes will be declared first, constructors second and methods third.(2)
+- Initialise a local variable as close as possible to where it's used. (1)
+- Use one line of code by initialising multiple variables of the same class. (1)
 
 ## Security / access
-- Maak variabelen private waar mogelijk. (2)
+- Make variables private if possible. (2)
 
 
 Link 1: http://www.cs.cornell.edu/courses/JavaAndDS/JavaStyle.html#fielddecs
