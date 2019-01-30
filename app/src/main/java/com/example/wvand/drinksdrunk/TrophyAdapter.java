@@ -27,9 +27,6 @@ public class TrophyAdapter extends ResourceCursorAdapter {
         String nameTrophy = cursor.getString(cursor.getColumnIndex("name"));
         int achieved = cursor.getInt(cursor.getColumnIndex("achieved"));
 
-        System.out.println("Int check : " + achieved);
-        System.out.println("name check: " + nameTrophy);
-
         // Set the views with retrieved data
         trophyName.setText(nameTrophy);
 

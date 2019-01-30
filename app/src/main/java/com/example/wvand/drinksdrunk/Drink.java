@@ -4,16 +4,10 @@ import java.io.Serializable;
 
 public class Drink implements Serializable {
 
-    // Attributes for a drink
+    // Attributes for drink class
     private int id;
     private String kind;
     private String timestamp;
-
-    public Drink(int id, String kind, String timestamp) {
-        this.id = id;
-        this.kind = kind;
-        this.timestamp = timestamp;
-    }
 
     public Drink(String kind, String timestamp) {
         this.kind = kind;
@@ -32,15 +26,8 @@ public class Drink implements Serializable {
         return kind;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind;
-    }
-
     public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
 }

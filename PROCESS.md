@@ -130,6 +130,21 @@ Today, I started cleaning up the code: adding or deleting comments where needed,
 
 <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20InputActivityDateDefault.png" width="20%" height="20%"/>
 
+# day 18
+The last day was used to make some final improvements on the code, as well as choosing an icon for the app:
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20icon.png" width="20%" height="20%"/>
+
+I also realised I hadn't made landscape modes for the PlusActivity and the InputActivity yet. Now I have:
+
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20InputLandscape.png" width="20%" height="20%"/> <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20PlusLandscape.png" width="20%" height="20%"/>
+
+With these final adjustments the programming part of this project is finished.
+
+
+
+
+
 
 
 

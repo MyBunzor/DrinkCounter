@@ -48,9 +48,6 @@ public class GraphActivity extends AppCompatActivity {
                 // Use cursor and database to get amount of drinks in session, pass timestamps along
                 Cursor sessionCursor = db.selectSession(startSession, endsession, check);
 
-                int sessionCount = sessionCursor.getCount();
-                System.out.println("COUNT:" + sessionCount);
-
                 // Get different kind of drinks drunk
                 Cursor kindBeerCursor = db.selectsessionKind(startSession, endsession, check, beer);
                 Cursor kindWineCursor = db.selectsessionKind(startSession, endsession, check, wine);
@@ -66,9 +63,6 @@ public class GraphActivity extends AppCompatActivity {
                 int liquorCount = kindLiquorCursor.getCount();
                 int craftCount = kindCraftBeerCursor.getCount();
                 int cocktailCount = kindCocktailCursor.getCount();
-
-                System.out.println("COUNT: "+ beerCount + "_" + wineCount + "_" +  mixCount + "_" +
-                        liquorCount + "_" + craftCount + cocktailCount);
 
                 // Create column chart and list to put data in
                 Cartesian column = AnyChart.column();
@@ -197,13 +191,10 @@ public class GraphActivity extends AppCompatActivity {
                 monthTitle.text("Monthly consumption");
 
                 Cursor monthCount = db.selectMonth();
-                int monthNumber = (int) Math.ceil(monthCount.getCount() / 4);
-                System.out.println("MONTHCOUNT: " + monthCount.getCount());
-
-                System.out.println("CURSORMONTH: "+ DatabaseUtils.dumpCursorToString(monthCount));
+                int monthInterval = (int) Math.ceil(monthCount.getCount() / 4);
 
                 // Set y-axis interval on 1 (input can't be a float) and make background transparent
-                columnMonth.yScale().ticks().interval(monthNumber);
+                columnMonth.yScale().ticks().interval(monthInterval);
                 columnMonth.background().fill("#B2EBF2");
 
                 break;
@@ -212,9 +203,6 @@ public class GraphActivity extends AppCompatActivity {
 
                 // Get the database to get to data
                 db = DrinkDatabase.getInstance(getApplicationContext());
-
-                Cursor yearCount = db.selectYear();
-                System.out.println("YEARCOUNT: " + yearCount.getCount());
 
                 // Use cursor and database to get amount of drinks past month
                 Cursor yearBeerCursor = db.selectkindYear(beer);
@@ -256,9 +244,12 @@ public class GraphActivity extends AppCompatActivity {
                 yearTitle.enabled(true);
                 yearTitle.text("Yearly consumption");
 
-                // Set y-axis interval on 1 (input can't be a float), background transparent
-                columnYear.yScale().ticks().interval(2);
+                // Set y-axis on a dynamic interval, background transparent
+                Cursor yearCount = db.selectYear();
+                int yearInterval = (int) Math.ceil(yearCount.getCount() / 10);
+                columnYear.yScale().ticks().interval(yearInterval);
                 columnYear.background().fill("#B2EBF2");
+
                 break;
         }
     }

@@ -23,7 +23,9 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".TimeActivity" />
+        <activity android:name=".TimeActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".TrophyActivity" />
         <activity android:name=".GraphActivity" />
         <activity android:name=".HistoryActivity" />

@@ -31,6 +31,7 @@ import static com.example.wvand.drinksdrunk.PlusActivity.launchLong;
 
 public class TrophyActivity extends AppCompatActivity {
 
+    // Use amount of milliseconds to control if trophies can be checked
     final static long THREEDAYS = 259200000;
     final static long WEEKDURATION = 604800000;
     final static long MONTHDURATION = (WEEKDURATION * 4) + (1000 * 60 * 60 * 24 * 2);
@@ -70,8 +71,6 @@ public class TrophyActivity extends AppCompatActivity {
         // Use first cursor to find out what was drunk in session, only if session is completed
         if (sessionEnd.length() > 1) {
 
-            System.out.println("Session end isn't null");
-
             Cursor cursor = db.selectsoberSession(sessionStart, sessionEnd);
 
             // If no drinks were drunk and trophy wasn't achieved yet, set trophy as achieved
@@ -82,7 +81,7 @@ public class TrophyActivity extends AppCompatActivity {
                 Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                         .setSmallIcon(R.drawable.notificationglass)
                         .setContentTitle("Well done!")
-                        .setContentText("You've won a trophy. Click to find out which!")
+                        .setContentText("You've won a trophy, well done!")
                         .setPriority(NotificationCompat.PRIORITY_LOW)
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                         .build();
@@ -92,15 +91,23 @@ public class TrophyActivity extends AppCompatActivity {
             // If just one drink was drunk and trophy wasn't achieved yet, set trophy achieved
             else if (cursor.getCount() == 1 && controlJustOne.getCount() == 0) {
                 db.trophyAchieved("Just one");
+
+                // Notify user of won trophy
+                Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.notificationglass)
+                        .setContentTitle("Well done!")
+                        .setContentText("You've won a trophy, well done!")
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+                notificationManager.notify(1, notification);
             }
         }
 
         // If databae is emtpy, undo Just One trophy
         Cursor allDrinks = db.selectAll();
-        System.out.println("CURSOR: " +DatabaseUtils.dumpCursorToString(allDrinks));
         if (allDrinks.getCount() == 0) {
-            System.out.println("Testdeleting just one");
-            db.justoneUndone();
+            db.trophyUndone("Just one");
         }
 
         // Get time in millis right now
@@ -116,6 +123,16 @@ public class TrophyActivity extends AppCompatActivity {
             // If nothing was drunk, set days trophy as achieved (if not already achieved)
             if (threedaysCursor.getCount() == 0 && controlDays.getCount() == 0) {
                 db.trophyAchieved("Three days");
+
+                // Notify user of won trophy
+                Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.notificationglass)
+                        .setContentTitle("Well done!")
+                        .setContentText("You've won a trophy, well done!")
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+                notificationManager.notify(1, notification);
             }
         }
 
@@ -128,19 +145,37 @@ public class TrophyActivity extends AppCompatActivity {
             // If nothing was drunk, set week trophy as achieved (if not already achieved)
             if (weekCursor.getCount() == 0 && controlWeek.getCount() == 0) {
                 db.trophyAchieved("Sober week");
+
+                // Notify user of won trophy
+                Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.notificationglass)
+                        .setContentTitle("Well done!")
+                        .setContentText("You've won a trophy, well done!")
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+                notificationManager.notify(1, notification);
             }
         }
 
         // If app is launched longer than a month ago, find out how much was drunk in month
         if ((actual - launchLong) > MONTHDURATION) {
 
-            System.out.println("MONTH!");
-
             // Use cursor to find out what was drunk in last month
             Cursor monthCursor = db.selectMonth();
 
             if (monthCursor.getCount() == 0 && controlMonth.getCount() == 0) {
                 db.trophyAchieved("Sober month");
+
+                // Notify user of won trophy
+                Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.notificationglass)
+                        .setContentTitle("Well done!")
+                        .setContentText("You've won a trophy, well done!")
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+                notificationManager.notify(1, notification);
             }
         }
 
@@ -152,12 +187,21 @@ public class TrophyActivity extends AppCompatActivity {
 
             if (yearCursor.getCount() == 0 && controlYear.getCount() == 0) {
                 db.trophyAchieved("Sober year");
+
+                // Notify user of won trophy
+                Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.notificationglass)
+                        .setContentTitle("Well done!")
+                        .setContentText("You've won a trophy, well done!")
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+                notificationManager.notify(1, notification);
             }
         }
 
         // Creating cursor and trophy adapter
         Cursor updatedCursor = db.selectAllTrophies();
-        System.out.println("TROPHIES: " +DatabaseUtils.dumpCursorToString(updatedCursor));
         TrophyAdapter adapter = new TrophyAdapter(this, R.layout.grid_item, updatedCursor);
 
         // Set adapter on TrophyActivity

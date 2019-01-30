@@ -46,7 +46,6 @@ public class PlusActivity extends AppCompatActivity {
         // Check how many drinks were drunk past 4 hours: warn user if needed
         Cursor hoursAgo = db.selectFourHours();
 
-        System.out.println("HOURS: " + hoursAgo.getCount());
         if (hoursAgo.getCount() > 4) {
 
             // Notify drinks drunk are over four
@@ -112,7 +111,8 @@ public class PlusActivity extends AppCompatActivity {
 
     }
 
-    // Method that captures the date of first launch: useful for trophies
+    // Method that captures the date of first launch: useful for trophies, source:
+    // https://stackoverflow.com/questions/7217578/check-if-application-is-on-its-first-run
     @Override
     protected void onResume() {
         super.onResume();
@@ -136,8 +136,8 @@ public class PlusActivity extends AppCompatActivity {
         // Get time right now
         Calendar cal = Calendar.getInstance();
         long actual = cal.getTimeInMillis();
-        System.out.println("Long:" + launchLong);
 
+        // Get milliseconds for 6 days
         long sixdaysPeriod = 1000 * 60 * 60 * 24 * 6;
 
         // Six days since launch have passed, check if trophy isn't already achieved

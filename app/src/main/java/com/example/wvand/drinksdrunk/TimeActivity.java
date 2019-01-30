@@ -29,8 +29,6 @@ public class TimeActivity extends AppCompatActivity {
         String sessionend = (String) getsessionData.getSerializableExtra("sessionend");
         Boolean check = (Boolean) getsessionData.getSerializableExtra("switch");
 
-        System.out.println("What's the check: " + check);
-
         // Start intent and pass given data above with it
         Intent session = new Intent(TimeActivity.this, GraphActivity.class);
         session.putExtra("sessionstart", sessionstart);
