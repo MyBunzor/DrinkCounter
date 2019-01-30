@@ -9,3 +9,10 @@ Users can undo their last drink by touching the red button and manually input dr
 <img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20NewTimeActivity2.png" width="20%" height="20%"/>
 
 The user can either choose a timeperiod in which their data will be shown, click on the history button or the trophies button. Lastly named button will lead the user to the activity where achieved trophies can be seen.
+
+Sources:
+- Icons: https://icons8.com/
+- https://www.youtube.com/watch?v=T3sb7VUpkeE
+
+Stackoverflow: 
+- https://stackoverflow.com/questions/7217578/check-if-application-is-on-its-first-run
