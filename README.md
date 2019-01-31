@@ -17,3 +17,5 @@ Sources:
 
 Stackoverflow: 
 - https://stackoverflow.com/questions/7217578/check-if-application-is-on-its-first-run
+
+Walkthrough: https://youtu.be/luV7IFC-ZQU
