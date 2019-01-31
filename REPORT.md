@@ -8,7 +8,7 @@ The DrinksDrunk applications helps users to register their consumption of alcoho
 ## Technical design
 The functionality of this app is supported by two databases: one to register the drinks, another to register trophies. The navigation works as illustrated below: 
 
-<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20TechnicalDesign.png" width="40%" height="40%"/>
+<img src="https://github.com/MyBunzor/DrinksDrunk/blob/master/docs/DrinksDrunk%20TechnicalDesign.png" width="100%" height="100%"/>
 
 
 
