@@ -13,6 +13,7 @@ The user can either choose a timeperiod in which their data will be shown, click
 Sources:
 - Icons: https://icons8.com/
 - https://www.youtube.com/watch?v=T3sb7VUpkeE
+- https://github.com/AnyChart/AnyChart-Android
 
 Stackoverflow: 
 - https://stackoverflow.com/questions/7217578/check-if-application-is-on-its-first-run
